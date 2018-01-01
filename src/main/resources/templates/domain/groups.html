@@ -1,65 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-	<title>Grupy</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="${title}">...</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+		<div th:replace="index :: banner">...</div>
+		<div th:replace="index :: main_panel">...</div>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	
-  </head>
-  <body>
-	<div class="container-fluid">
-		<div class="page-header text-center">
-		<h1>Forum publiczne</h1> 
-		<p>Zaloguj się, stwórz temat i rozmawiaj</p> 
-	</div>
-	
-	<div class="container panel panel-default">
-		<div class="row panel-body">
-			<div class="btn-group col-sm-12">
-				<a class="btn btn-default" href="login.html" role="button">Logowanie</a>
-				<a class="btn btn-success" href="register.html" role="button">Rejestracja</a>
-				<a class="btn btn-default" href="groups.html" role="button">Grupy</a>
+		<div class="container">
+			<div class="row btn-group col-sm-12  pb-3">
+				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
+				<a class="btn btn-primary" th:href="@{/groups}" role="button">Grupy</a>
+				<hr />
 			</div>
 		</div>
-	</div>
-	
-	<div class="container">
-		<div class="row btn-group col-sm-12  pb-3">
-				<a class="btn btn-default" href="index.html" role="button">Home</a>
-				<a class="btn btn-primary" href="groups.html" role="button">Grupy</a>
-				<hr/>
-		</div>
-	</div>
-	
-	
-	<div class="container">
-		<div class="panel panel-default">
-		<div class="list-group">
-			<a href="group_site.html" class="list-group-item text-center">Piekarze <span class="badge">1</span></a>
-			<a href="group_site.html" class="list-group-item text-center">Kajakarze <span class="badge">5</span></a>
-		</div>
-		
-		<div class="row">
-		
-			<div class="col-sm-3">
-				<a class="btn btn-danger" href="create_group.html" role="button">Stwórz grupe</a>
+
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="list-group">
+<!-- Zamiast groupsite - konkretna podstrona kazdej grupy -->
+					<a th:href="@{/groups/groupsite}" class="list-group-item text-center">
+					Piekarze<span class="badge">1</span>	
+					</a> 
+					<a th:href="@{/groups/groupsite}" class="list-group-item text-center">
+					Kajakarze<span class="badge">5</span>
+					</a>
+				</div>
+
+				<div class="row">
+
+					<div class="col-sm-3">
+						<a class="btn btn-danger" th:href="@{/groups/creategroup}" role="button">
+						Stwórz grupę
+						</a>
+					</div>
+
+				</div>
 			</div>
-			
 		</div>
-	</div>
-	
-	<hr/>
-   <footer class="footer">
-      <div class="container">
-        <p class="text-muted text-center"><i>by Maciej Kijko</i></p>
-      </div>
-    </footer>
-  </body>
+			<hr />
+			<footer th:replace="index :: footer">...</footer>
+</body>
 </html>
