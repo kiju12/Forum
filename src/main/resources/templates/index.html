@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title th:text="${title}" >...</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	
+	<div th:fragment="banner"  class="container-fluid">
+		<div  class="page-header text-center">
+			<h1>Forum publiczne</h1>
+			<p>Zaloguj się, stwórz temat i rozmawiaj</p>
+		</div>
+	</div>
+	
+	
+		<div class="container panel panel-default" th:fragment="main_panel">
+			<div class="row panel-body">
+				<div class="btn-group col-sm-12">
+					<a class="btn btn-default" th:href="@{/login}" role="button">Logowanie</a>
+					<a class="btn btn-success" th:href="@{/register}" role="button">Rejestracja</a>
+					<a class="btn btn-default" th:href="@{/groups}" role="button">Grupy</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row btn-group col-sm-12  pb-3">
+				<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
+				<hr />
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="panel panel-default">
+				<table class="table table-bordered panel-body">
+					<thead>
+						<tr class="row well">
+
+							<th class="col-sm-8">Nazwa Forum</th>
+							<th class="col-sm-2 text-center">Liczba tematów</th>
+							<th class="col-sm-2 text-center">Data założenia</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="row">
+
+							<td class="col-sm-8"><a href="forum.html"><h4>Przykladowa
+										nazwa forum</h4></a></td>
+							<td class="col-sm-2 text-center"><h4>1</h4></td>
+							<td class="col-sm-2 text-center"><h4>dd/MM/yyyy</h4></td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<hr />
+		<footer class="footer" th:fragment="footer">
+			<div class="container">
+				<p class="text-muted text-center">
+					<i>by Maciej Kijko</i>
+				</p>
+			</div>
+		</footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title th:text="${title}" >...</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+  <body>
+	<div th:replace="index :: banner" class="container-fluid">...</div>
+
+	<div th:replace="index :: main_panel" class="container panel panel-default">...</div>
+	
+	<div class="container">
+		<div class="row btn-group col-sm-12  pb-3">
+				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
+				<a class="btn btn-primary" th:href="@{/login}" role="button">Logowanie</a>
+				<hr/>
+		</div>
+	</div>
+	
+	
+	<div class="container">
+		<div class="panel panel-default">
+		<hr/>
+		<div th:if="${logComplete}" class="alert alert-success">
+  				Udało ci się zalogować!
+		</div>
+			<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+			<div class="row">
+				<div class="col-sm-3 col-sm-offset-1">
+<!-- LOGIN	 -->
+					<div th:if="${#fields.hasErrors('login')}" class="form-group has-error">
+						<label for="login">Login:</label>
+						<input type="text" class="form-control" id="login" th:field="*{login}"/>
+						
+						<div th:each="error : ${#fields.errors('login')}">
+								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
+						</div>
+					</div>
+					
+					<div th:unless="${#fields.hasErrors('login')}" class="form-group ">
+						<label for="login">Login:</label>
+						<input type="text" class="form-control" id="login" th:field="*{login}"/>
+						
+					</div>
+<!-- HASŁO -->
+					<div th:if="${#fields.hasErrors('password')}" class="form-group has-error">
+						<label for="pwd">Hasło:</label>
+						<input type="password" class="form-control" id="pwd" th:field="*{password}"/>
+						
+						<div th:each="error : ${#fields.errors('password')}">
+							<h6 class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+						</div>
+					</div>
+					
+					<div th:unless="${#fields.hasErrors('password')}" class="form-group">
+						<label for="pwd">Hasło:</label>
+						<input type="password" class="form-control" id="pwd" th:field="*{password}"/>
+						
+						
+					</div>
+					
+<!-- PRZYCISK LOGOWANIA -->
+					<div class="form-group">
+						<button type="submit" class="btn btn-danger col-sm-4 col-sm-offset-1">Zaloguj</button>
+					</div>
+				</div>
+				
+				</div>
+			</form>
+			
+		
+		<hr/>
+	</div>
+	</div>
+	
+	<hr/>
+   <footer th:replace="index :: footer" >
+      ...
+    </footer>
+  </body>
+</html>
