@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import kijko.forum.domain.LoginForm;
+import kijko.forum.domain.forms.LoginForm;
 import kijko.forum.validate.LoginFormValidator;
 
 @Controller
@@ -30,6 +30,7 @@ public class LoginController {
 		return "user/login";
 	}
 	
+	//Informacje po logowaniu
 	@PostMapping("/login")
 	public String login(@ModelAttribute("loginForm") LoginForm logForm, BindingResult result, Model model) {
 		logFormValidator.validate(logForm, result);

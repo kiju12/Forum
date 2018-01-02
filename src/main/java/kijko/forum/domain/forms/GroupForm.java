@@ -1,4 +1,4 @@
-package kijko.forum.domain;
+package kijko.forum.domain.forms;
 
 import org.springframework.stereotype.Component;
 

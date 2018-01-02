@@ -8,8 +8,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import kijko.forum.domain.LoginForm;
 import kijko.forum.domain.User;
+import kijko.forum.domain.forms.LoginForm;
 import kijko.forum.domain.repository.UserRepository;
 
 @Component

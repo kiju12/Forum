@@ -1,7 +1,9 @@
-package kijko.forum.domain;
+package kijko.forum.domain.forms;
 
 
 import org.springframework.stereotype.Component;
+
+import kijko.forum.domain.User;
 
 @Component
 public class RegisterForm {

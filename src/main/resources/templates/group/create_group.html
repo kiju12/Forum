@@ -31,25 +31,37 @@ textarea {
 
 			<div class="panel-body">
 
-				<form  action="#" th:action="@{/group/creategroup}" th:object="${groupForm}" method="post">
+				<div th:if="${created}" class="alert alert-success">
+					Pomyślnie utworzyłeś grupę <b><i th:text="${name}">...</i></b> !
+				</div>
+
+				<form id="create"  action="#" th:action="@{/groups/creategroup}" th:object="${groupForm}" method="post">
 					<div class="form-group row">
-						
-						<div class="col-sm-12">
+<!-- Nazwa grupy -->
+						<div class="col-sm-12" th:classappend="${#fields.hasErrors('crewName')} ? has-error">
 							<label>Nazwa grupy</label> 
 							<input type="text" class="form-control" placeholder="Nazwa grupy" maxlength="63" th:field="*{crewName}" />
 							<span class="help-block">max. 63 znaki</span>
+							<div th:each="error : ${#fields.errors('crewName')}">
+								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
+							</div>
 						</div>
 
-						<div class="col-sm-12">
+<!-- Opis grupy	-->
+						<div class="col-sm-12" th:classappend="${#fields.hasErrors('description')} ? has-error">
 
 							<label>Krótki opis grupy</label>
 							<textarea class="form-control" form="create" placeholder="Treść"
-								maxlength="255" rows="5"></textarea>
+								maxlength="255" rows="5" th:field="*{description}"></textarea>
 							<span class="help-block">max. 255 znaków</span>
-
+							<div th:each="error : ${#fields.errors('description')}">
+								<h6 class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+							</div>
 						</div>
-
-						<div class="col-sm-12">
+						
+						
+<!-- Dodaj członków -->
+						<div class="col-sm-12" th:classappend="${#fields.hasErrors('members')} ? has-error">
 							<label>Dodaj członków</label> 
 							<input type="text" class="form-control" placeholder="np. tadekfirma; bosskiroman" maxlength="63" th:field="*{members}" /> 
 							<span class="help-block">
@@ -57,11 +69,13 @@ textarea {
 								<span class="text-success">nazwie użytkownika</span>
 								oddzielając je znakiem ;
 							</span>
+							<div th:each="error : ${#fields.errors('members')}">
+								<h6 class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+							</div>
 						</div>
 
 						<div class="col-sm-2 col-sm-offset-6">
- 							<input type="submit" class="btn btn-success" value="Dodaj" /> 
-							
+ 							<button type="submit" class="btn btn-success col-sm-6 col-sm-offset-1">Dodaj</button>
 						</div>
 						
 					</div>

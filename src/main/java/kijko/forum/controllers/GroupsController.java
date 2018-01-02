@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kijko.forum.domain.GroupForm;
+import kijko.forum.domain.forms.GroupForm;
+import kijko.forum.validate.GroupFormValidator;
 
 @Controller
 @RequestMapping("/groups")
@@ -21,8 +22,11 @@ public class GroupsController {
 	private String group_title = "Strona grupy";
 	private String createGroup = "Tworzenie grupy";
 	
+	private boolean groupCreated = false;
+	
 	@Autowired
-	private GroupForm createGroupForm;
+	private GroupFormValidator groupFormValidator;
+	
 	
 	@GetMapping
 	public String groups(Model model) {
@@ -39,13 +43,25 @@ public class GroupsController {
 	@GetMapping("/creategroup")
 	public String createGroup(Model model) {
 		model.addAttribute("title", createGroup);
-		model.addAttribute("groupForm", createGroupForm);
+		model.addAttribute("groupForm", new GroupForm());
 		return "group/create_group";
 	}
 	
+//	Informacje po utworzeniu grupy
 	@PostMapping("/creategroup")
-	public String createGroup(@ModelAttribute("createGroupForm") GroupForm form, BindingResult result) {
-		log.info(form.toString());
+	public String createGroup(@ModelAttribute("groupForm") GroupForm form, BindingResult result, Model model) {
+		groupFormValidator.validate(form, result);
+		
+		if(!result.hasErrors()) {
+			log.info(form.toString()); 
+			groupCreated = true;
+			model.addAttribute("created", groupCreated);
+			model.addAttribute("name", form.getCrewName());
+		} else {
+			groupCreated = false;
+		}
+		
+		
 		return "group/create_group";
 	}
 }

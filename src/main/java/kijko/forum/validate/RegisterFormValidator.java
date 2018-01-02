@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import kijko.forum.domain.RegisterForm;
+import kijko.forum.domain.forms.RegisterForm;
 
 @Component
 public class RegisterFormValidator implements Validator {

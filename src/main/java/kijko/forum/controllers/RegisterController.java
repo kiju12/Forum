@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kijko.forum.domain.RegisterForm;
 import kijko.forum.domain.User;
+import kijko.forum.domain.forms.RegisterForm;
 import kijko.forum.domain.repository.UserRepository;
 import kijko.forum.validate.RegisterFormValidator;
 
@@ -39,6 +39,7 @@ public class RegisterController {
 		return "user/register";
 	}
 	
+	//Informacje po rejestracji
 	@PostMapping
 	public String register(@ModelAttribute("form") RegisterForm form, BindingResult result, Model model) {
 		validator.validate(form, result);

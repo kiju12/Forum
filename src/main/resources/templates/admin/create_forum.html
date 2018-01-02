@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="${title}">...</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<style>
+textarea {
+	resize: none;
+}
+</style>
+</head>
+  <body>
+	<div class="container-fluid">
+		<div th:replace="index :: banner">...</div>
+		<div th:replace="index :: main_panel">...</div>
+	</div>
+	<div class="container">
+		<div class="row btn-group col-sm-12">
+				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
+				<a class="btn btn-primary" th:href="@{/createforum}" role="button">Stwórz forum</a>
+					<hr/>
+		</div>
+	</div>
+	<div class="container">
+			<div th:if="${forumCreatingProblem}" class="alert alert-warning">
+					Forum nie zostało utworzone.
+			</div>
+		</div>
+	<div class="container panel panel-default">
+		
+		<div class="panel-body">
+			<hr/>
+			<form id="createforum" action="#" th:action="@{/createforum}" method="post" th:object="${forumForm}">
+			<div class="form-group row">
+				<div class="col-sm-12" th:classappend="${#fields.hasErrors('name')} ? has-error">
+					<label>Nazwa Forum</label>
+					<input type="text" class="form-control" placeholder="Nazwa" maxlength="63" th:field="*{name}" />
+					<span class="help-block">max. 63 znaki</span>
+					<div th:each="error : ${#fields.errors('name')}">
+								<h6  class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+					</div>
+				</div>
+				<div class="col-sm-2 col-sm-offset-6">
+					<button type="submit" class="btn btn-success col-sm-6 col-sm-offset-1">Dodaj</button>
+				</div>
+			
+			</div>
+			</form>
+			<hr/>
+		</div>
+	</div>
+	
+	<hr/>
+   <footer th:replace="index :: footer">...</footer>
+  </body>
+</html>

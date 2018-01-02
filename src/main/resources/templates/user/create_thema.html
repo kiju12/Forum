@@ -1,82 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-	<title>Przykladowe forum</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head >
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="${title}">...</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<style>
+textarea {
+	resize: none;
+}
+</style>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
-		textarea {
-			resize: none;
-		}
-	</style>
-	
-	
-  </head>
-  <body>
+
+</head>
+<body>
 	<div class="container-fluid">
-		<div class="page-header text-center">
-		<h1>Forum publiczne</h1> 
-		<p>Zaloguj się, stwórz temat i rozmawiaj</p> 
+		<div th:replace="index :: banner">...</div>
+		<div th:replace="index :: main_panel">...</div>
 	</div>
-	
-	<div class="container panel panel-default">
-		<div class="row panel-body">
-			<div class="btn-group col-sm-12">
-				<a class="btn btn-default" href="login.html" role="button">Logowanie</a>
-				<a class="btn btn-success" href="register.html" role="button">Rejestracja</a>
-				<a class="btn btn-default" href="groups.html" role="button">Grupy</a>
+		<div class="container">
+			<div class="row btn-group col-sm-12">
+				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
+				<a class="btn btn-default" th:href="@{/forums/example}" role="button">Przykladowe forum</a> 
+				<a class="btn btn-primary" th:href="@{/forums/example/createthema}" role="button">Stwórz temat</a>
+				<hr />
 			</div>
 		</div>
-	</div>
-	
-	<div class="container">
-		<div class="row btn-group col-sm-12">
-				<a class="btn btn-default" href="index.html" role="button">Home</a>
-				<a class="btn btn-default" href="forum.html" role="button">Przykladowe forum</a>
-				<a class="btn btn-primary" href="thema.html" role="button">Stwórz temat</a>
-					<hr/>
+
+		<div class="container panel panel-default">
+
+			<div class="panel-body">
+
+				<form id="createthema" action="#" th:action="@{/forums/example/createthema}" method="post" th:object="${themaForm}">
+					<div class="form-group row">
+						<div class="col-sm-12" th:classappend="${#fields.hasErrors('title')} ? has-error">
+							<label>Tytuł tematu</label> 
+							<input type="text"	class="form-control" placeholder="Tytuł tematu" maxlength="63" th:field="*{title}"/>
+							<span class="help-block">max. 63 znaki</span>
+							<div th:each="error : ${#fields.errors('title')}">
+								<h6  class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+							</div>
+						</div>
+						<div class="col-sm-12" th:classappend="${#fields.hasErrors('firstPostContent')} ? has-error">
+							<label>Treść pierwszego posta</label>
+							<textarea class="form-control" form="createthema" placeholder="Treść" maxlength="2048" rows="5" th:field="*{firstPostContent}">
+							</textarea>
+							<span class="help-block">max. 2048 znaków</span>
+							<div th:each="error : ${#fields.errors('firstPostContent')}">
+								<h6  class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
+							</div>
+						</div>
+						<div class="col-sm-3 col-sm-offset-6">
+							<button type="submit" class="btn btn-success col-sm-6 col-sm-offset-1">Dodaj temat</button>
+
+						</div>
+					</div>
+				</form>
+			</div>
+
 		</div>
-	</div>
 	
-	<div class="container panel panel-default">
-		
-		<div class="panel-body">
-			
-			<form id="answer">
-				<div class="form-group row">
-				<div class="col-sm-12">
-					<label>Tytuł tematu</label>
-					<input type="text" class="form-control" placeholder="Tytuł tematu" maxlength="63" />
-					<span class="help-block">max. 63 znaki</span>
-				</div>
-				<div class="col-sm-12">
-					
-					<label>Treść pierwszego posta</label>
-					<textarea class="form-control" form="answer" placeholder="Treść" maxlength="255" rows="5"></textarea>
-					<span class="help-block">max. 255 znaków</span>
-					
-				</div>
-				<div class="col-sm-2 col-sm-offset-6">
-					<input type="submit" class="btn btn-success" value="Dodaj" />
-				
-				</div>
-			</form>
-		</div>
-		
-	</div>
-	</div>
-	
-	<hr/>
-   <footer class="footer">
-      <div class="container">
-        <p class="text-muted text-center"><i>by Maciej Kijko</i></p>
-      </div>
-    </footer>
-  </body>
+
+	<hr />
+	<footer th:replace="index :: footer">...</footer>
+</body>
 </html>
