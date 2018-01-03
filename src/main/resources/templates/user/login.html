@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -24,14 +24,11 @@
 	<div class="container">
 		<div class="panel panel-default">
 		<hr/>
-		<div th:if="${logComplete}" class="alert alert-success">
-  				Udało ci się zalogować!
-		</div>
 			<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">
 <!-- LOGIN	 -->
-					<div th:if="${#fields.hasErrors('login')}" class="form-group has-error">
+					<div class="form-group" th:classappend="${#fields.hasErrors('login')} ? has-error">
 						<label for="login">Login:</label>
 						<input type="text" class="form-control" id="login" th:field="*{login}"/>
 						
@@ -40,13 +37,8 @@
 						</div>
 					</div>
 					
-					<div th:unless="${#fields.hasErrors('login')}" class="form-group ">
-						<label for="login">Login:</label>
-						<input type="text" class="form-control" id="login" th:field="*{login}"/>
-						
-					</div>
 <!-- HASŁO -->
-					<div th:if="${#fields.hasErrors('password')}" class="form-group has-error">
+					<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
 						<label for="pwd">Hasło:</label>
 						<input type="password" class="form-control" id="pwd" th:field="*{password}"/>
 						
@@ -55,12 +47,6 @@
 						</div>
 					</div>
 					
-					<div th:unless="${#fields.hasErrors('password')}" class="form-group">
-						<label for="pwd">Hasło:</label>
-						<input type="password" class="form-control" id="pwd" th:field="*{password}"/>
-						
-						
-					</div>
 					
 <!-- PRZYCISK LOGOWANIA -->
 					<div class="form-group">

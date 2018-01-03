@@ -25,17 +25,18 @@
 	<div class="container">
 		<div class="panel panel-default">
 			<hr />
+			
 			<div th:if="${regComplete}" class="alert alert-success">
-  				<strong>Sukces!</strong> Rejestracja przebiegła pomyślnie!
+  				<strong>Sukces!</strong> 
+  				<p>Rejestracja przebiegła pomyślnie! Zaloguj się <a th:href="@{/login}">tutaj</a>.</p>
 			</div>
 			
-
 			<!-- 		Formularz rejestracyjny -->
 			<form action="#" th:action="@{/register}" th:object="${form}" method="post">
 				<div class="row">
 					<div class="col-sm-3 col-sm-offset-1">
 <!-- USERNAME -->
-						<div th:if="${#fields.hasErrors('username')}" class="form-group has-error">
+						<div class="form-group" th:classappend="${#fields.hasErrors('username')} ? has-error">
 							<label for="username">Login:</label> 
 							<input  type="text" class="form-control" th:placeholder="#{username.help}" id="username" th:field="*{username}" />
 							
@@ -44,13 +45,8 @@
 							</div>
 						</div>
 						
-						<div th:unless="${#fields.hasErrors('username')}" class="form-group">
-							<label for="username">Login:</label> 					
-							<input  type="text" class="form-control" th:placeholder="#{username.help}" id="username" th:field="*{username}" />
-							
-						</div>
 <!-- PASSWORD -->
-						<div th:if="${#fields.hasErrors('password')}" class="form-group has-error">
+						<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
 							<label for="pass">Hasło:</label> 
 							<input type="password" class="form-control" th:placeholder="#{password.help}" id="pass" th:field="*{password}" />
 							
@@ -58,14 +54,8 @@
 								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
 							</div>
 						</div>
-						
-						<div th:unless="${#fields.hasErrors('password')}" class="form-group">
-							<label for="pass">Hasło:</label> 
-							<input type="password" class="form-control" th:placeholder="#{password.help}" id="pass" th:field="*{password}" />
-						</div>
-						
 <!-- CONFIRM PASSWORD -->
-						<div th:if="${#fields.hasErrors('passConfirm')}" class="form-group has-error">
+						<div class="form-group" th:classappend="${#fields.hasErrors('passConfirm')} ? has-error">
 							<label for="passConfirm">Powtórz hasło:</label> 
 							<input type="password" class="form-control" th:placeholder="#{passConfirm.help}" id="passConfirm" th:field="*{passConfirm}" />
 							
@@ -73,28 +63,14 @@
 								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
 							</div>
 						</div>
-						
-						<div th:unless="${#fields.hasErrors('passConfirm')}" class="form-group">
-							<label for="passConfirm">Powtórz hasło:</label> 
-							<input type="password" class="form-control" th:placeholder="#{passConfirm.help}" id="passConfirm" th:field="*{passConfirm}" />
-							
-						</div>
-						
-						
 <!-- E-mail -->
-						<div th:if="${#fields.hasErrors('email')}" class="form-group has-error">
+						<div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
 							<label for="email">E-mail:</label> 
 							<input type="email"	class="form-control" th:placeholder="#{email.help}" id="email" th:field="*{email}" />
 							
 							<div th:each="error : ${#fields.errors('email')}">
 								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
 							</div>
-						</div>
-						
-						<div th:unless="${#fields.hasErrors('email')}" class="form-group">
-							<label for="email">E-mail:</label> 
-							<input type="email"	class="form-control" th:placeholder="#{email.help}" id="email" th:field="*{email}" />
-							
 						</div>
 <!-- REGISTER BUTTON -->
 						<div class="form-group">

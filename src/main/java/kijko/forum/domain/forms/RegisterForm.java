@@ -1,7 +1,8 @@
-package kijko.forum.domain;
+package kijko.forum.domain.forms;
 
 
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class RegisterForm {
@@ -12,16 +13,13 @@ public class RegisterForm {
 	private String passConfirm;
 	private String email;
 	
-	public User createUser() {
-		User u = new User();
-		
-		u.setLogin(username);
-		u.setPassword(password);
-		u.setEmail(email);
-		
-		return u;
+	@Override
+	public String toString() {
+		return "RegisterForm [username=" + username + ", password=" + password + ", passConfirm=" + passConfirm
+				+ ", email=" + email + "]";
 	}
-	
+
+
 	public String getUsername() {
 		return username;
 	}

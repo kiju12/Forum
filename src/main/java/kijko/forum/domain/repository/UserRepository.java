@@ -11,11 +11,17 @@ public class UserRepository {
 
 	private ArrayList<User> users = new ArrayList<>();;
 
+	public UserRepository() {
+		User u1 = new User();
+		u1.setLogin("kijkowski");
+		u1.setPassword("hwdp");
+		
+		addUser(u1);
+	}
 	
 	public void addUser(User user) {
 		users.add(user);
 	}
-	
 	
 	public ArrayList<User> getUsers() {
 		return users;

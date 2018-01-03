@@ -1,43 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-	<title>Przykladowe forum</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="${title}">...</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	
-  </head>
+</head>
   <body>
 	<div class="container-fluid">
-		<div class="page-header text-center">
-		<h1>Forum publiczne</h1> 
-		<p>Zaloguj się, stwórz temat i rozmawiaj</p> 
+		<div th:replace="index :: banner">...</div>
+		<div th:replace="index :: main_panel">...</div>
 	</div>
-	
-	<div class="container panel panel-default">
-		<div class="row panel-body">
-			<div class="btn-group col-sm-12">
-				<a class="btn btn-default" href="login.html" role="button">Logowanie</a>
-				<a class="btn btn-success" href="register.html" role="button">Rejestracja</a>
-				<a class="btn btn-default" href="groups.html" role="button">Grupy</a>
-			</div>
-		</div>
-	</div>
-	
 	<div class="container">
 		<div class="row btn-group col-sm-12">
-				<a class="btn btn-default" href="index.html" role="button">Home</a>
-				<a class="btn btn-primary" href="forum.html" role="button">Przykladowe forum</a>
+				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
+				<a class="btn btn-primary" th:href="@{/forums/example}" role="button">Przykladowe forum</a>
 				<hr/>
 		</div>
 	</div>
-	
+	<div class="container">
+			<div th:if="${themaCreated}" class="alert alert-success">
+					Utworzono temat.
+			</div>
+		</div>
 	
 	<div class="container">
 		<div class="panel panel-default">
@@ -54,7 +42,7 @@
 				<tbody>
 			<tr class="row">
 			
-				<td class="col-sm-8" ><a href="thema.html"><h4>Przykładowy Temat</h4></a></td>
+				<td class="col-sm-8" ><a th:href="@{/forums/example/thema}"><h4>Przykładowy Temat</h4></a></td>
 				<td class="col-sm-2 text-center"><h4>1</h4></td>
 				<td class="col-sm-2 text-center"><h4>dd/MM/yyyy</h4></td>
 				
@@ -63,14 +51,10 @@
 				</tbody>
 			</table>
 		</div>
-		<a class="btn btn-default" href="create_thema.html" role="button">Stwórz temat</a>
+		<a class="btn btn-default" th:href="@{/forums/example/createthema}" role="button">Stwórz temat</a>
 	</div>
 	
 	<hr/>
-   <footer class="footer">
-      <div class="container">
-        <p class="text-muted text-center"><i>by Maciej Kijko</i></p>
-      </div>
-    </footer>
+   <footer th:replace="index :: footer">...</footer>
   </body>
 </html>

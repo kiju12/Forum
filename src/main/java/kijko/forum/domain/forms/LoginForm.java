@@ -1,4 +1,4 @@
-package kijko.forum.domain;
+package kijko.forum.domain.forms;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +10,10 @@ public class LoginForm {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "LoginForm [login=" + login + ", password=" + password + "]";
+	}
 	public String getLogin() {
 		return login;
 	}

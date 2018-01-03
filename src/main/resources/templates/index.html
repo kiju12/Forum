@@ -27,7 +27,15 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="container">
+			<div th:if="${forumCreated}" class="alert alert-success">
+					Utworzono forum.
+			</div>
+			<div th:if="${logComplete}" class="alert alert-success">
+					Logowanie pomyślne
+			</div>
+		</div>
+		
 		<div class="container">
 			<div class="row btn-group col-sm-12  pb-3">
 				<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
@@ -51,8 +59,7 @@
 					<tbody>
 						<tr class="row">
 
-							<td class="col-sm-8"><a href="forum.html"><h4>Przykladowa
-										nazwa forum</h4></a></td>
+							<td class="col-sm-8"> <a th:href="@{/forums/example}"><h4>Przykladowa nazwa forum</h4></a> </td>
 							<td class="col-sm-2 text-center"><h4>1</h4></td>
 							<td class="col-sm-2 text-center"><h4>dd/MM/yyyy</h4></td>
 
@@ -61,9 +68,10 @@
 					</tbody>
 				</table>
 			</div>
-
+		<a class="btn btn-default" th:href="@{/createforum}" role="button">Stwórz forum</a>
 		</div>
-
+<!-- 		Przycisk widoczny tylko dla Administratora -->
+		
 		<hr />
 		<footer class="footer" th:fragment="footer">
 			<div class="container">

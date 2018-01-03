@@ -1,25 +1,67 @@
 package kijko.forum.domain;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class User {
 	
-	private Long id;
+	private long id;
 	private String login;
 	private String password;
 	private String email;
-	
+	private String joinDate;
+	private ArrayList<Thema> themas;
+	private ArrayList<Post> posts;
+	private ArrayList<Role> roles;
 	
 	public User() {
 		
 	}
 	
-	public void print() {
-		System.out.println(this.id + " " + this.login + " " + this.password + " " + this.email);
-	}
 	
-	public Long getId() {
+	public String getJoinDate() {
+		return joinDate;
+	}
+
+
+	public void setJoinDate(String joinDate) {
+		this.joinDate = joinDate;
+	}
+
+
+	public ArrayList<Thema> getThemas() {
+		return themas;
+	}
+
+
+	public void setThemas(ArrayList<Thema> themas) {
+		this.themas = themas;
+	}
+
+
+	public ArrayList<Post> getPosts() {
+		return posts;
+	}
+
+
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
+	}
+
+
+	public ArrayList<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(ArrayList<Role> roles) {
+		this.roles = roles;
+	}
+
+
+	public long getId() {
 		return id;
 	}
 
