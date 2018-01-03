@@ -1,7 +1,14 @@
 package kijko.forum.domain.forms;
 
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
+import kijko.forum.domain.Post;
+import kijko.forum.domain.Thema;
+import kijko.forum.domain.User;
 
 
 @Component
@@ -20,6 +27,23 @@ public class RegisterForm {
 	}
 
 
+	public User createUser() {
+		User user = new User();
+			user.setLogin(username);
+			user.setPassword(password);
+			user.setEmail(email);
+			user.setJoinDate(new Date());
+				ArrayList<Thema> themas = new ArrayList<>();
+			user.setThemas(themas);
+				ArrayList<Post> posts = new ArrayList<>();
+			user.setPosts(posts);
+//			ArrayList<Role> roles = new ArrayList<>();
+//				roles.add(new Role("USER"));
+//			user.setRoles(roles);
+			
+		return user;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

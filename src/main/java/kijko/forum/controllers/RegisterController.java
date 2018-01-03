@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kijko.forum.domain.User;
 import kijko.forum.domain.forms.RegisterForm;
 import kijko.forum.domain.repository.UserRepository;
 import kijko.forum.validate.RegisterFormValidator;
@@ -23,10 +23,9 @@ public class RegisterController {
 	private static Logger log = Logger.getLogger(RegisterController.class.getName());
 	
 	private String title = "Rejestracja";
-	private boolean regComplete = false;
 	
 	@Autowired
-	private UserRepository rep;
+	private UserRepository userRepo;
 	
 	@Autowired
 	private RegisterFormValidator validator;
@@ -39,23 +38,25 @@ public class RegisterController {
 		return "user/register";
 	}
 	
-	//Informacje po rejestracji
 	@PostMapping
-	public String register(@ModelAttribute("form") RegisterForm form, BindingResult result, Model model) {
+	public String register(@ModelAttribute("form") RegisterForm form, BindingResult result, RedirectAttributes redAtt) {
 		validator.validate(form, result);
 		
 		if(!result.hasErrors()) {
 			log.info("Formularz rejestracyjny - przeszedł walidacje");
 			log.info(form.toString());
-			regComplete = true;
+			userRepo.save(form.createUser());
+			
+			redAtt.addFlashAttribute("regComplete", true);
+			return "redirect:/register";
 		} else {
 			log.info("Formularz rejestracyjny - NIE przeszedł walidacji");
-			regComplete = false;
+			
+			return "user/register";
 		}
 		
 		
-		model.addAttribute("regComplete", regComplete);
-		return "user/register";
+		
 		
 	}
 	
