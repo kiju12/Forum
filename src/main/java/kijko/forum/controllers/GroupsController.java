@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.GroupForm;
 import kijko.forum.validate.GroupFormValidator;
@@ -22,7 +23,7 @@ public class GroupsController {
 	private String group_title = "Strona grupy";
 	private String createGroup = "Tworzenie grupy";
 	
-	private boolean groupCreated = false;
+	
 	
 	@Autowired
 	private GroupFormValidator groupFormValidator;
@@ -47,21 +48,25 @@ public class GroupsController {
 		return "group/create_group";
 	}
 	
-//	Informacje po utworzeniu grupy
+
 	@PostMapping("/creategroup")
-	public String createGroup(@ModelAttribute("groupForm") GroupForm form, BindingResult result, Model model) {
+	public String createGroup(@ModelAttribute("groupForm") GroupForm form, BindingResult result, Model model, RedirectAttributes redAtt) {
 		groupFormValidator.validate(form, result);
 		
 		if(!result.hasErrors()) {
-			log.info(form.toString()); 
-			groupCreated = true;
-			model.addAttribute("created", groupCreated);
-			model.addAttribute("name", form.getCrewName());
+			log.info("Formularz tworzenia grupy - pomyślnie utworzony");
+			log.info(form.toString());
+			
+			
+			redAtt.addFlashAttribute("groupName", form.getCrewName());
+			redAtt.addFlashAttribute("created", true);
+			return "redirect:/groups";
 		} else {
-			groupCreated = false;
+			log.info("Formularz tworzenia grupy - NIE UTWORZONO");
+			return "group/create_group";
 		}
 		
 		
-		return "group/create_group";
+		
 	}
 }

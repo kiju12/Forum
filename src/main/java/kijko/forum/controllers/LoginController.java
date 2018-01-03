@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.LoginForm;
 import kijko.forum.validate.LoginFormValidator;
@@ -16,7 +17,6 @@ import kijko.forum.validate.LoginFormValidator;
 public class LoginController {
 
 	private String title = "Logowanie";
-	private boolean logComplete = false;
 	private Logger log = Logger.getLogger(LoginController.class.getName());
 	
 	@Autowired
@@ -30,20 +30,17 @@ public class LoginController {
 		return "user/login";
 	}
 	
-	//Informacje po logowaniu
 	@PostMapping("/login")
-	public String login(@ModelAttribute("loginForm") LoginForm logForm, BindingResult result, Model model) {
+	public String login(@ModelAttribute("loginForm") LoginForm logForm, BindingResult result, RedirectAttributes redAtt) {
 		logFormValidator.validate(logForm, result);
 		
 		if(!result.hasErrors()) {
-			log.info("Pomyślne logowanie");
-			logComplete = true;
-			model.addAttribute("logComplete", logComplete);
-			return "/";
+			log.info("Formularz logowania - pomyślne logowanie");
+			redAtt.addFlashAttribute("logComplete", true);
+			return "redirect:/";
 		} else {
-			log.info("Błąd w logowaniu");
-			logComplete = false;
-			model.addAttribute("logComplete", logComplete);
+			log.info("Formularz logowania - NIE ZALOGOWANO");
+
 			return "user/login";
 		}
 		

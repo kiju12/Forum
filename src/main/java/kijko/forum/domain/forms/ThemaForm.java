@@ -10,6 +10,10 @@ public class ThemaForm {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "ThemaForm [title=" + title + ", firstPostContent=" + firstPostContent + "]";
+	}
 	public String getTitle() {
 		return title;
 	}

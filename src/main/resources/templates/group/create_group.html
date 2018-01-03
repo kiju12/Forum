@@ -30,11 +30,6 @@ textarea {
 		<div class="container panel panel-default">
 
 			<div class="panel-body">
-
-				<div th:if="${created}" class="alert alert-success">
-					Pomyślnie utworzyłeś grupę <b><i th:text="${name}">...</i></b> !
-				</div>
-
 				<form id="create"  action="#" th:action="@{/groups/creategroup}" th:object="${groupForm}" method="post">
 					<div class="form-group row">
 <!-- Nazwa grupy -->

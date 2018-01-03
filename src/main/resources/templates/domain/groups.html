@@ -20,6 +20,11 @@
 		</div>
 
 		<div class="container">
+		
+		<div th:if="${created}" class="alert alert-success">
+					Pomyślnie utworzyłeś grupę <b><i th:text="${groupName}">...</i></b> !
+		</div>
+		
 			<div class="panel panel-default">
 				<div class="list-group">
 <!-- Zamiast groupsite - konkretna podstrona kazdej grupy -->

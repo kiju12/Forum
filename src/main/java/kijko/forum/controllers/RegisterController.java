@@ -43,23 +43,14 @@ public class RegisterController {
 	@PostMapping
 	public String register(@ModelAttribute("form") RegisterForm form, BindingResult result, Model model) {
 		validator.validate(form, result);
-		User registered;
 		
 		if(!result.hasErrors()) {
-			log.info("Formularz przeszedł walidacje");
-			
+			log.info("Formularz rejestracyjny - przeszedł walidacje");
+			log.info(form.toString());
 			regComplete = true;
-			
-			registered = form.createUser();	
-			rep.addUser(registered);
-			registered.print();
-			
-			
 		} else {
-			log.info("Formularz nie przeszedł walidacji");
-			
+			log.info("Formularz rejestracyjny - NIE przeszedł walidacji");
 			regComplete = false;
-			
 		}
 		
 		

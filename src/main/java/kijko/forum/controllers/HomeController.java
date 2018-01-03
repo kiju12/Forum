@@ -25,7 +25,6 @@ public class HomeController {
 	@Autowired
 	private ForumFormValidator forumFormValid;
 
-	private boolean forumCreatingProblem = false;
 
 	@GetMapping
 	public String home(Model model) {
@@ -47,13 +46,13 @@ public class HomeController {
 		forumFormValid.validate(form, result);
 
 		if (!result.hasErrors()) {
-			forumCreatingProblem = false;
+			log.info("Formularz tworzenia forum - pomyślnie utworzono");
+			log.info(form.toString());
 			redAtt.addFlashAttribute("forumCreated", true);
-			log.info("Nazwa tworzonego forum: " + form.getName());
+			
 			return "redirect:/";
 		} else {
-			forumCreatingProblem = true;
-			model.addAttribute("forumCreatingProblem", forumCreatingProblem);
+			log.info("Formularz tworzenia forum - NIE UTWORZONO");
 			return "admin/create_forum";
 		}
 

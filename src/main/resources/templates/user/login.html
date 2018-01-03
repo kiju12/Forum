@@ -24,9 +24,6 @@
 	<div class="container">
 		<div class="panel panel-default">
 		<hr/>
-		<div th:if="${logComplete}" class="alert alert-success">
-  				Udało ci się zalogować!
-		</div>
 			<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">

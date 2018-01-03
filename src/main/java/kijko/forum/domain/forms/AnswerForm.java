@@ -7,6 +7,12 @@ public class AnswerForm {
 
 	private String content;
 
+	
+	@Override
+	public String toString() {
+		return "AnswerForm [content=" + content + "]";
+	}
+
 	public String getContent() {
 		return content;
 	}

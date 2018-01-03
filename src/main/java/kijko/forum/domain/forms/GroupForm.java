@@ -9,6 +9,10 @@ public class GroupForm {
 	private String description;
 	private String members;
 	
+	@Override
+	public String toString() {
+		return "GroupForm [crewName=" + crewName + ", description=" + description + ", members=" + members + "]";
+	}
 	public String getCrewName() {
 		return crewName;
 	}
@@ -28,8 +32,5 @@ public class GroupForm {
 		this.members = members;
 	}
 	
-	public String toString() {
-		return "Nazwa: " + crewName + " Opis: " + description + " Członkowie: " + members;
-	}
 	
 }

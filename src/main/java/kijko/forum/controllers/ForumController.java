@@ -47,10 +47,13 @@ public class ForumController {
 		themaFormValidator.validate(form, result);
 		
 		if(!result.hasErrors()) {
+			log.info("Formularz tematu - pomyślnie utworzony");
+			log.info(form.toString());
+			
 			redAtt.addFlashAttribute("themaCreated", true);
 			return "redirect:/forums/example";
 		} else {
-			
+			log.info("Formularz tematu - NIE UTWORZONY");
 			return "user/create_thema";
 		}
 	}
@@ -67,9 +70,13 @@ public class ForumController {
 		answerFormValid.validate(form, result);
 		
 		if(!result.hasErrors()) {
-			log.info("Odpowiedź zwalidowana");
-			log.info("Content: " + form.getContent());
-		} 
+			log.info("Formularz odpowiedzi - pomyślnie utworzony");
+			log.info(form.toString());
+			
+			return "redirect:/forums/example/thema";
+		} else {
+			log.info("Formularz odpowiedzi - NIE UTWORZONO");
+		}
 		
 		return "domain/thema";
 	}
