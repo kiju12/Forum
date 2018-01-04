@@ -1,37 +1,58 @@
 package kijko.forum.domain;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Component
+
+@Entity
+@Table(name="group")
 public class Group {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private User leader;
+	
+	@Column(name="groupName")
 	private String groupName;
-	private String dateOfCreate;
+	
+	@Column(name="created")
+	private Date dateOfCreate;
+	
+	@Column(name="description")
 	private String description;
-	private ArrayList<User> members;
+	
+	@OneToMany(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "group_id", nullable = true)
+	private Collection<User> members;
 	
 	
-	public String getDateOfCreate() {
+	public Date getDateOfCreate() {
 		return dateOfCreate;
 	}
-	public void setDateOfCreate(String dateOfCreate) {
+	public void setDateOfCreate(Date dateOfCreate) {
 		this.dateOfCreate = dateOfCreate;
+	}
+	public Collection<User> getMembers() {
+		return members;
+	}
+	public void setMembers(Collection<User> members) {
+		this.members = members;
 	}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public User getLeader() {
-		return leader;
-	}
-	public void setLeader(User leader) {
-		this.leader = leader;
 	}
 	public String getGroupName() {
 		return groupName;
@@ -44,12 +65,6 @@ public class Group {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public ArrayList<User> getMembers() {
-		return members;
-	}
-	public void setMembers(ArrayList<User> members) {
-		this.members = members;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package kijko.forum.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -29,9 +30,12 @@ public class Thema {
 	private Date createDate;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "thema_id")
+	@JoinColumn(name = "thema_id") 
 	private Collection<Post> posts;
 	
+	public Thema() {
+		posts = new ArrayList<Post>();
+	}
 	
 	public Collection<Post> getPosts() {
 		return posts;

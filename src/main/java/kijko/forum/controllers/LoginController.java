@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.LoginForm;
+import kijko.forum.domain.repository.ForumRepository;
 import kijko.forum.validate.LoginFormValidator;
 
 @Controller
@@ -18,6 +19,9 @@ public class LoginController {
 
 	private String title = "Logowanie";
 	private Logger log = Logger.getLogger(LoginController.class.getName());
+	
+	@Autowired
+	private ForumRepository forumRepo;
 	
 	@Autowired
 	private LoginFormValidator logFormValidator;

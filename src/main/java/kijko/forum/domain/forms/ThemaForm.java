@@ -1,6 +1,10 @@
 package kijko.forum.domain.forms;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
+import kijko.forum.domain.Thema;
 
 @Component
 public class ThemaForm {
@@ -25,6 +29,15 @@ public class ThemaForm {
 	}
 	public void setFirstPostContent(String firstPostContent) {
 		this.firstPostContent = firstPostContent;
+	}
+	public Thema createThema() {
+		Thema thema = new Thema();
+			thema.setTitle(this.title);
+			thema.setCreateDate(new Date());
+
+		
+		
+		return thema;
 	}
 	
 	
