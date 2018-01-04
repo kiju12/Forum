@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kijko.forum.domain.Role;
 import kijko.forum.domain.forms.ForumForm;
 import kijko.forum.domain.repository.ForumRepository;
+import kijko.forum.domain.repository.RoleRepository;
 import kijko.forum.validate.ForumFormValidator;
 
 @Controller
@@ -28,11 +31,16 @@ public class HomeController {
 	
 	@Autowired
 	private ForumFormValidator forumFormValid;
-
+	
+	@Autowired
+	private RoleRepository roleRepo;
 
 	@GetMapping
 	public String home(Model model) {
 		model.addAttribute("title", title);
+		roleRepo.save(new Role("USER"));
+		roleRepo.save(new Role("ADMIN"));
+		
 		return "index";
 	}
 

@@ -6,15 +6,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import kijko.forum.domain.User;
 import kijko.forum.domain.forms.RegisterForm;
-import kijko.forum.domain.repository.UserRepository;
+import kijko.forum.services.UserService;
 
 @Component
 public class RegisterFormValidator implements Validator {
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserService userService;
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -31,17 +30,13 @@ public class RegisterFormValidator implements Validator {
 			errors.rejectValue("username", "username.size");
 		
 		//Tutaj warunek że username nie wystepuje w bazie danych
-		for(User u : userRepo.findAll()) {
-			if(u.getLogin().equalsIgnoreCase(form.getUsername())) {
+			if(userService.findByLogin(form.getUsername()) != null) {
 				errors.rejectValue("username", "username.duplication");
-				break;
 			}
 			
-			if(u.getEmail().equalsIgnoreCase(form.getEmail())) {
+			if(userService.findByEmail(form.getEmail()) != null) {
 				errors.rejectValue("email", "email.duplication");
-				break;
 			}
-		}
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "notEmpty");
 		if(form.getUsername().length() < 5 || form.getUsername().length() > 24)

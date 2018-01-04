@@ -2,13 +2,20 @@ package kijko.forum.domain.forms;
 
 
 import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import kijko.forum.domain.Role;
 import kijko.forum.domain.User;
+import kijko.forum.domain.repository.RoleRepository;
 
 
 @Component
 public class RegisterForm {
 	
+	@Autowired
+	private RoleRepository roleRepo;
 
 	private String username;
 	private String password;
@@ -28,7 +35,9 @@ public class RegisterForm {
 			user.setPassword(password);
 			user.setEmail(email);
 			user.setJoinDate(new Date());
-			
+		Role userRole = roleRepo.findByName("USER");
+			user.getRoles().add(userRole);
+		
 //			ArrayList<Role> roles = new ArrayList<>();
 //				roles.add(new Role("USER"));
 //			user.setRoles(roles);
