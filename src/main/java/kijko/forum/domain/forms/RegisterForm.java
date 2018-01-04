@@ -35,7 +35,7 @@ public class RegisterForm {
 			user.setPassword(password);
 			user.setEmail(email);
 			user.setJoinDate(new Date());
-		Role userRole = roleRepo.findByName("USER");
+		Role userRole = roleRepo.getOne(new Long(2));
 			user.getRoles().add(userRole);
 		
 //			ArrayList<Role> roles = new ArrayList<>();

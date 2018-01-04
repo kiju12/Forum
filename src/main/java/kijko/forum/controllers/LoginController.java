@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.LoginForm;
 import kijko.forum.domain.repository.ForumRepository;
+import kijko.forum.services.SecurityService;
 import kijko.forum.validate.LoginFormValidator;
 
 @Controller
@@ -22,6 +23,9 @@ public class LoginController {
 	
 	@Autowired
 	private ForumRepository forumRepo;
+	
+	@Autowired
+	private SecurityService secService;
 	
 	@Autowired
 	private LoginFormValidator logFormValidator;
@@ -41,6 +45,10 @@ public class LoginController {
 		if(!result.hasErrors()) {
 			log.info("Formularz logowania - pomyślne logowanie");
 			redAtt.addFlashAttribute("logComplete", true);
+			
+			secService.autologin(logForm.getLogin(), logForm.getPassword());
+			
+			
 			return "redirect:/";
 		} else {
 			log.info("Formularz logowania - NIE ZALOGOWANO");

@@ -22,6 +22,7 @@ public class Role {
 	@Column(name = "name")
 	private String name;
 	
+	//mappedby - przed dodaniem uzytkownika, musza istniec role ktore chcemy mu dodac
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users;
 	
