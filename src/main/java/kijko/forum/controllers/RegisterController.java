@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.RegisterForm;
-import kijko.forum.services.SecurityService;
 import kijko.forum.services.UserService;
 import kijko.forum.validate.RegisterFormValidator;
 
@@ -31,8 +30,6 @@ public class RegisterController {
 	@Autowired
 	private RegisterFormValidator validator;
 	
-	@Autowired
-	private SecurityService securityService;
 	
 	@GetMapping
 	public String register(Model model) {
@@ -56,7 +53,6 @@ public class RegisterController {
 			log.info(form.toString());
 			userService.save(form.createUser());
 			
-			securityService.autologin(form.getUsername(), form.getPassword());
 			
 			redAtt.addFlashAttribute("regComplete", true);
 			return "redirect:/register";

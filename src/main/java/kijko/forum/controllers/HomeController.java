@@ -38,8 +38,6 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model) {
 		model.addAttribute("title", title);
-		roleRepo.save(new Role("USER"));
-		roleRepo.save(new Role("ADMIN"));
 		
 		return "index";
 	}

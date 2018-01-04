@@ -3,6 +3,7 @@ package kijko.forum.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -60,6 +61,7 @@ public class User {
 	public User() {
 		themas = new ArrayList<Thema>();
 		posts = new ArrayList<Post>();
+		roles = new HashSet<Role>();
 	}
 
 	public Collection<Post> getPosts() {
