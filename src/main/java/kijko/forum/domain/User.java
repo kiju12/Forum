@@ -1,65 +1,94 @@
 package kijko.forum.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Component
+@Entity
+@Table(name = "user")
 public class User {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(name = "login")
 	private String login;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "email")
 	private String email;
-	private String joinDate;
-	private ArrayList<Thema> themas;
-	private ArrayList<Post> posts;
-	private ArrayList<Role> roles;
-	
-	public User() {
-		
-	}
-	
-	
-	public String getJoinDate() {
-		return joinDate;
-	}
 
+	@Column(name = "joinDate")
+	private Date joinDate;
 
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
-	}
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "author_id")
+	private Collection<Thema> themas;
 
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "author_id")
+	private Collection<Post> posts;
 
-	public ArrayList<Thema> getThemas() {
-		return themas;
-	}
+	@ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
-
-	public void setThemas(ArrayList<Thema> themas) {
-		this.themas = themas;
-	}
-
-
-	public ArrayList<Post> getPosts() {
-		return posts;
-	}
-
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
-	}
-
-
-	public ArrayList<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-
-	public void setRoles(ArrayList<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
+	public User() {
+		themas = new ArrayList<Thema>();
+		posts = new ArrayList<Post>();
+	}
+
+	public Collection<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Collection<Post> posts) {
+		this.posts = posts;
+	}
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Collection<Thema> getThemas() {
+		return themas;
+	}
+
+	public void setThemas(Collection<Thema> themas) {
+		this.themas = themas;
+	}
 
 	public long getId() {
 		return id;
@@ -92,7 +121,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
+
 }

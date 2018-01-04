@@ -1,6 +1,10 @@
 package kijko.forum.domain.forms;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
+import kijko.forum.domain.Group;
 
 @Component
 public class GroupForm {
@@ -8,6 +12,16 @@ public class GroupForm {
 	private String crewName;
 	private String description;
 	private String members;
+	
+	public Group createGroup() {
+		Group group = new Group();
+			group.setDateOfCreate(new Date());
+			group.setGroupName(crewName);
+			group.setDescription(description);
+		//Dodanie czlonkow ze stringa
+			
+		return group;
+	}
 	
 	@Override
 	public String toString() {

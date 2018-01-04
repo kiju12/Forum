@@ -30,26 +30,27 @@ public class LoginFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "notEmpty" );
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "notEmpty" );
 		
-		ArrayList<User> allUsers = rep.getUsers();
-		User lookedFor = null;
-		
-		//Wyszukanie użytkownika
-		for(User u : allUsers) {
-			if( u.getLogin().equals(lForm.getLogin()) ){
-				
-				lookedFor = u;
-				
-				if(! lookedFor.getPassword().equals(lForm.getPassword()) ) {
-					errors.rejectValue("password", "password.bad");
-				}
-				break;
-				
-			}
-		}
-		
-		if(lookedFor == null) {
-			errors.rejectValue("login", "login.bad");
-		}
+//		Sprawdzenie czy użytkownik istnieje
+//		ArrayList<User> allUsers = rep.getUsers();
+//		User lookedFor = null;
+//		
+//		//Wyszukanie użytkownika
+//		for(User u : allUsers) {
+//			if( u.getLogin().equals(lForm.getLogin()) ){
+//				
+//				lookedFor = u;
+//				
+//				if(! lookedFor.getPassword().equals(lForm.getPassword()) ) {
+//					errors.rejectValue("password", "password.bad");
+//				}
+//				break;
+//				
+//			}
+//		}
+//		
+//		if(lookedFor == null) {
+//			errors.rejectValue("login", "login.bad");
+//		}
 		
 	}
 

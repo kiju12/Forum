@@ -16,38 +16,32 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "thema")
-public class Thema {
+@Table(name="forum")
+public class Forum {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "title")
+	@Column(name="title")
 	private String title;
 	
-	@Column(name = "createDate")
-	private Date createDate;
-
+	@Column(name="created")
+	private Date dateOfCreate;
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "thema_id") 
-	private Collection<Post> posts;
+	@JoinColumn(name="forum_id")
+	private Collection<Thema> themas;
 	
-	public Thema() {
-		posts = new ArrayList<Post>();
+	public Forum() {
+		themas = new ArrayList<Thema>();
 	}
 	
-	public Collection<Post> getPosts() {
-		return posts;
+	public Date getDateOfCreate() {
+		return dateOfCreate;
 	}
-	public void setPosts(Collection<Post> posts) {
-		this.posts = posts;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setDateOfCreate(Date dateOfCreate) {
+		this.dateOfCreate = dateOfCreate;
 	}
 	public long getId() {
 		return id;
@@ -62,6 +56,13 @@ public class Thema {
 		this.title = title;
 	}
 
+	public Collection<Thema> getThemas() {
+		return themas;
+	}
+
+	public void setThemas(Collection<Thema> themas) {
+		this.themas = themas;
+	}
 	
 	
 }
