@@ -1,7 +1,5 @@
 package kijko.forum.controllers;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.Role;
-import kijko.forum.domain.User;
 import kijko.forum.domain.forms.ForumForm;
 import kijko.forum.domain.repository.ForumRepository;
 import kijko.forum.domain.repository.RoleRepository;
-import kijko.forum.services.UserService;
 import kijko.forum.validate.ForumFormValidator;
 
 @Controller
@@ -34,20 +30,16 @@ public class HomeController {
 	private ForumRepository forumRepo;
 	
 	@Autowired
-	private UserService userService;
+	private ForumFormValidator forumFormValid;
 	
 	@Autowired
 	private RoleRepository roleRepo;
-	
-	@Autowired
-	private ForumFormValidator forumFormValid;
-	
 
 	@GetMapping
 	public String home(Model model) {
 		model.addAttribute("title", title);
-	
-		
+		roleRepo.save(new Role("USER"));
+		roleRepo.save(new Role("ADMIN"));
 		
 		return "index";
 	}
