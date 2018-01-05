@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -20,13 +21,26 @@
 	
 		<div class="container panel panel-default" th:fragment="main_panel">
 			<div class="row panel-body">
-				<div class="btn-group col-sm-12">
+				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_USER') and not hasRole('ROLE_ADMIN')">
+					<span class="btn btn-danger">Zalogowany jako <span sec:authentication="name">...</span></span>
+					<a class="btn btn-default" th:href="@{/groups}" role="button">Grupy</a>
+					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
+				</div>
+				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a class="btn btn-danger" th:href="@{/adminpanel}">Panel Administratora</a>
+					<a class="btn btn-default" th:href="@{/groups}" role="button">Grupy</a>
+					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
+				</div>
+				<div class="btn-group col-sm-12" sec:authorize="not isAuthenticated()">
 					<a class="btn btn-default" th:href="@{/login}" role="button">Logowanie</a>
 					<a class="btn btn-success" th:href="@{/register}" role="button">Rejestracja</a>
 					<a class="btn btn-default" th:href="@{/groups}" role="button">Grupy</a>
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		<div class="container">
 			<div th:if="${forumCreated}" class="alert alert-success">
 					Utworzono forum.

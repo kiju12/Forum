@@ -24,27 +24,24 @@
 	<div class="container">
 		<div class="panel panel-default">
 		<hr/>
-			<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+			<div th:if="${loginError}" class="alert alert-danger">
+				<p>
+					Złe dane do logowania, spróbuj ponownie.
+				</p>
+			</div>
+			<form action="#" th:action="@{/login}" method="post">
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">
 <!-- LOGIN	 -->
-					<div class="form-group" th:classappend="${#fields.hasErrors('login')} ? has-error">
+					<div class="form-group" th:classappend="${loginError} ? has-error">
 						<label for="login">Login:</label>
-						<input name="login" type="text" class="form-control" id="login" th:field="*{login}"/>
-						
-						<div th:each="error : ${#fields.errors('login')}">
-								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
-						</div>
+						<input name="login" type="text" class="form-control" id="login"/>
 					</div>
 					
 <!-- HASŁO -->
-					<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
+					<div class="form-group" th:classappend="${loginError} ? has-error">
 						<label for="pwd">Hasło:</label>
-						<input name="password" type="password" class="form-control" id="pwd" th:field="*{password}"/>
-						
-						<div th:each="error : ${#fields.errors('password')}">
-							<h6 class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
-						</div>
+						<input name="password" type="password" class="form-control" id="pwd"/>
 					</div>
 					
 					
