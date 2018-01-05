@@ -1,7 +1,5 @@
 package kijko.forum.controllers;
 
-import java.util.ArrayList;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kijko.forum.domain.Forum;
-import kijko.forum.domain.Post;
-import kijko.forum.domain.Thema;
-import kijko.forum.domain.User;
 import kijko.forum.domain.forms.AnswerForm;
 import kijko.forum.domain.forms.ThemaForm;
-import kijko.forum.domain.repository.UserRepository;
 import kijko.forum.validate.AnswerFormValidator;
 import kijko.forum.validate.ThemaFormValidator;
 
@@ -30,10 +23,6 @@ public class ForumController {
 	
 	private Logger log = Logger.getLogger(ForumController.class.getName());
 	
-//	@Autowired
-//	private ForumRepository forumRepo;
-//	@Autowired
-//	private UserRepository userRepo;
 	
 	@Autowired
 	private ThemaFormValidator themaFormValidator;
@@ -63,7 +52,6 @@ public class ForumController {
 			log.info("Formularz tematu - pomyślnie utworzony");
 			log.info(form.toString());
 			
-			Thema createdThema = form.createThema();
 			
 //			User user = userRepo.findByLogin("kijkowski");
 //				user.getThemas().add(createdThema);

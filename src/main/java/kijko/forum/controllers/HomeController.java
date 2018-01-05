@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kijko.forum.domain.Role;
 import kijko.forum.domain.forms.ForumForm;
-import kijko.forum.domain.repository.RoleRepository;
 import kijko.forum.validate.ForumFormValidator;
 
 @Controller
@@ -25,14 +23,9 @@ public class HomeController {
 	private String title = "Strona główna";
 	private String create_title = "Tworzenie forum";
 	
-//	@Autowired
-//	private ForumRepository forumRepo;
-//	
 	@Autowired
 	private ForumFormValidator forumFormValid;
 	
-	@Autowired
-	private RoleRepository roleRepo;
 
 	@GetMapping
 	public String home(Model model) {
@@ -40,7 +33,7 @@ public class HomeController {
 		
 		return "index";
 	}
-
+	
 
 	@GetMapping("/createforum")
 	public String createForum(Model model) {
@@ -58,7 +51,6 @@ public class HomeController {
 			log.info("Formularz tworzenia forum - pomyślnie utworzono");
 			log.info(form.toString());
 			
-//			forumRepo.save(form.createForum());
 			redAtt.addFlashAttribute("forumCreated", true);
 			
 			return "redirect:/";

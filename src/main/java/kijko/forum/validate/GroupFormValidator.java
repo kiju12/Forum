@@ -24,7 +24,6 @@ public class GroupFormValidator implements Validator {
 		if(form.getCrewName().length() > 63) errors.rejectValue("crewName", "crewname.size");
 		if(form.getDescription().length() > 255) errors.rejectValue("description", "description.size");
 		
-		String users = form.getMembers();
 		//Instrukcje wyodrebniajace nazwy uzytkownikow ze Stringa
 		//Instrukcje sprawdzajace czy dani uzytkownicy istnieja
 		//Walidacja
