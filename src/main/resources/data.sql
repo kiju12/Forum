@@ -1,7 +1,6 @@
-INSERT INTO ROLE(name) VALUES ('USER');
-INSERT INTO ROLE(name) VALUES ('ADMIN');
+insert into role(name) VALUES ("ROLE_USER");
+insert into role(name) VALUES ("ROLE_ADMIN");
 
-INSERT INTO USER(login, password) VALUES ('admin123', 'admin123');
-
-INSERT INTO USER_ROLE(user_id, role_id) VALUES ('1', '1');
-INSERT INTO USER_ROLE(user_id, role_id) VALUES ('1', '2');
+insert into user(login, password) VALUES ("admin123", "admin123");
+insert into user_role(user_id, role_id) VALUES ('1', '1');
+insert into user_role(user_id, role_id) VALUES ('1', '2');

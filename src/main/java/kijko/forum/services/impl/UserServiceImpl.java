@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(User user) {
-		Role userRole = roleRepository.findByName("USER");
+		Role userRole = roleRepository.findByName("ROLE_USER");
 		user.getRoles().add(userRole);
 		
         userRepository.save(user);

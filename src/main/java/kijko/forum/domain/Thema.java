@@ -15,22 +15,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name = "thema")
+//@Entity
+//@Table(name = "thema")
 public class Thema {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "title")
+//	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "createDate")
+//	@Column(name = "createDate")
 	private Date createDate;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "thema_id") 
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "thema_id") 
 	private Collection<Post> posts;
 	
 	public Thema() {

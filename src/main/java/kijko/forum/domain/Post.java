@@ -9,17 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="post")
+//@Entity
+//@Table(name="post")
 public class Post {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "dateOfCreate")
+//	@Column(name = "dateOfCreate")
 	private Date dateOfCreate;
 	
-	@Column(name = "content")
+//	@Column(name = "content")
 	private String content;
 	
 	public Date getDateOfCreate() {

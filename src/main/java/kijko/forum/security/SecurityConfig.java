@@ -1,16 +1,26 @@
 package kijko.forum.security;
 
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import kijko.forum.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
+	private AccessDeniedHandler accessDenied;
+	
+	@Bean
+	public UserDetailsService customUserDetailsService() {
+		return new UserDetailsServiceImpl();
+	}
 	
 	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
@@ -18,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 		.antMatchers("/createforum").hasAnyRole("ADMIN")
-		.antMatchers("/groups/**", "/forums/**/createthema", "/groups/**").hasAnyRole("USER")
-		.antMatchers("/", "/register").permitAll()
+		.antMatchers("/groups/**", "/forums/**/createthema").hasAnyRole("USER")
+		.antMatchers("/", "/register", "/forums/**" ).permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -30,7 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logout()
             .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
-                .permitAll();
+                .permitAll()
+		.and()
+        .exceptionHandling().accessDeniedHandler(accessDenied);
 	    }
 	 
 	 

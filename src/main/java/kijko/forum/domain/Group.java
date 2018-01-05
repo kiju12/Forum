@@ -14,26 +14,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name="group")
+//@Entity
+//@Table(name="group")
 public class Group {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name="groupName")
+//	@Column(name="groupName")
 	private String groupName;
 	
-	@Column(name="created")
+//	@Column(name="created")
 	private Date dateOfCreate;
 	
-	@Column(name="description")
+//	@Column(name="description")
 	private String description;
 	
-	@OneToMany(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "group_id", nullable = true)
-	private Collection<User> members;
+//	@OneToMany(cascade=CascadeType.DETACH)
+//	@JoinColumn(name = "group_id", nullable = true)
+//	private Collection<User> members;
 	
 	
 	public Date getDateOfCreate() {
@@ -42,12 +42,12 @@ public class Group {
 	public void setDateOfCreate(Date dateOfCreate) {
 		this.dateOfCreate = dateOfCreate;
 	}
-	public Collection<User> getMembers() {
-		return members;
-	}
-	public void setMembers(Collection<User> members) {
-		this.members = members;
-	}
+//	public Collection<User> getMembers() {
+//		return members;
+//	}
+//	public void setMembers(Collection<User> members) {
+//		this.members = members;
+//	}
 	public long getId() {
 		return id;
 	}

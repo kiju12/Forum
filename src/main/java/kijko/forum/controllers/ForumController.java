@@ -20,7 +20,6 @@ import kijko.forum.domain.Thema;
 import kijko.forum.domain.User;
 import kijko.forum.domain.forms.AnswerForm;
 import kijko.forum.domain.forms.ThemaForm;
-import kijko.forum.domain.repository.ForumRepository;
 import kijko.forum.domain.repository.UserRepository;
 import kijko.forum.validate.AnswerFormValidator;
 import kijko.forum.validate.ThemaFormValidator;
@@ -31,10 +30,10 @@ public class ForumController {
 	
 	private Logger log = Logger.getLogger(ForumController.class.getName());
 	
-	@Autowired
-	private ForumRepository forumRepo;
-	@Autowired
-	private UserRepository userRepo;
+//	@Autowired
+//	private ForumRepository forumRepo;
+//	@Autowired
+//	private UserRepository userRepo;
 	
 	@Autowired
 	private ThemaFormValidator themaFormValidator;

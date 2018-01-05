@@ -1,7 +1,5 @@
 package kijko.forum.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,17 +7,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
 public class User {
 
 	@Id
@@ -38,39 +32,39 @@ public class User {
 	@Column(name = "joinDate")
 	private Date joinDate;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "author_id")
-	private Collection<Thema> themas;
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "author_id")
+//	private Collection<Thema> themas;
+//
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "author_id")
+//	private Collection<Post> posts;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "author_id")
-	private Collection<Post> posts;
-
-	@ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<Role> role = new HashSet<>();
 
 	public Set<Role> getRoles() {
-		return roles;
+		return role;
 	}
 
 	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+		this.role = roles;
 	}
 
 	public User() {
-		themas = new ArrayList<Thema>();
-		posts = new ArrayList<Post>();
-		roles = new HashSet<Role>();
+//		themas = new ArrayList<Thema>();
+//		posts = new ArrayList<Post>();
+		role = new HashSet<Role>();
 	}
 
-	public Collection<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(Collection<Post> posts) {
-		this.posts = posts;
-	}
+//	public Collection<Post> getPosts() {
+//		return posts;
+//	}
+//
+//	public void setPosts(Collection<Post> posts) {
+//		this.posts = posts;
+//	}
 
 	public Date getJoinDate() {
 		return joinDate;
@@ -84,13 +78,13 @@ public class User {
 		this.id = id;
 	}
 
-	public Collection<Thema> getThemas() {
-		return themas;
-	}
-
-	public void setThemas(Collection<Thema> themas) {
-		this.themas = themas;
-	}
+//	public Collection<Thema> getThemas() {
+//		return themas;
+//	}
+//
+//	public void setThemas(Collection<Thema> themas) {
+//		this.themas = themas;
+//	}
 
 	public long getId() {
 		return id;
