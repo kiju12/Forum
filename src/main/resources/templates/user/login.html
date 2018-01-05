@@ -30,7 +30,7 @@
 <!-- LOGIN	 -->
 					<div class="form-group" th:classappend="${#fields.hasErrors('login')} ? has-error">
 						<label for="login">Login:</label>
-						<input type="text" class="form-control" id="login" th:field="*{login}"/>
+						<input name="login" type="text" class="form-control" id="login" th:field="*{login}"/>
 						
 						<div th:each="error : ${#fields.errors('login')}">
 								<h6  class="text-danger" type="text" th:text="'*' +${error}">...</h6>
@@ -40,7 +40,7 @@
 <!-- HASŁO -->
 					<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
 						<label for="pwd">Hasło:</label>
-						<input type="password" class="form-control" id="pwd" th:field="*{password}"/>
+						<input name="password" type="password" class="form-control" id="pwd" th:field="*{password}"/>
 						
 						<div th:each="error : ${#fields.errors('password')}">
 							<h6 class="text-danger" type="text" th:text="'*' + ${error}">...</h6>

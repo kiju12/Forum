@@ -34,22 +34,22 @@ public class LoginController {
 		return "user/login";
 	}
 	
-	@PostMapping("/login")
-	public String login(@ModelAttribute("loginForm") LoginForm logForm, BindingResult result, RedirectAttributes redAtt) {
-		logFormValidator.validate(logForm, result);
-		
-		if(!result.hasErrors()) {
-			log.info("Formularz logowania - pomyślne logowanie");
-			redAtt.addFlashAttribute("logComplete", true);
-			return "redirect:/";
-		} else {
-			log.info("Formularz logowania - NIE ZALOGOWANO");
-
-			return "user/login";
-		}
-		
-		
-		
-		
-	}
+//	@PostMapping("/login")
+//	public String login(@ModelAttribute("loginForm") LoginForm logForm, BindingResult result, RedirectAttributes redAtt) {
+//		logFormValidator.validate(logForm, result);
+//		
+//		if(!result.hasErrors()) {
+//			log.info("Formularz logowania - pomyślne logowanie");
+//			redAtt.addFlashAttribute("logComplete", true);
+//			return "redirect:/";
+//		} else {
+//			log.info("Formularz logowania - NIE ZALOGOWANO");
+//
+//			return "user/login";
+//		}
+//		
+//		
+//		
+//		
+//	}
 }
