@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,7 +18,7 @@
 	<div class="container">
 		<div class="row btn-group col-sm-12">
 				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
-				<a class="btn btn-primary" th:href="@{/forums/example}" role="button">Przykladowe forum</a>
+				<a class="btn btn-primary" th:href="@{'/forums/' + ${title}}" role="button" th:text="${title}">...</a>
 				<hr/>
 		</div>
 	</div>
@@ -33,25 +34,27 @@
 				<thead>
 			<tr class="row well">
 				
-					<th class="col-sm-8">Nazwa Tematu</th>
-					<th class="col-sm-2 text-center" >Liczba tematów</th>
+					<th class="col-sm-6">Nazwa Tematu</th>
+					<th class="col-sm-2 text-center" >Liczba postów</th>
+					<th class="col-sm-2 text-center" >Autor tematu</th>
 					<th class="col-sm-2 text-center">Data założenia</th>
 
 			</tr>
 				</thead>
 				<tbody>
-			<tr class="row">
+			<tr class="row" th:each="thema : ${themaList}">
 			
-				<td class="col-sm-8" ><a th:href="@{/forums/example/thema}"><h4>Przykładowy Temat</h4></a></td>
-				<td class="col-sm-2 text-center"><h4>1</h4></td>
-				<td class="col-sm-2 text-center"><h4>dd/MM/yyyy</h4></td>
+				<td class="col-sm-6" ><a th:href="@{'/forums/' + ${title} + '/' + ${thema.title}}"><h4 th:text="${thema.title}">tytuł_tematu</h4></a></td>
+				<td class="col-sm-2 text-center"><h4>...</h4></td>
+				<td class="col-sm-2 text-center"><h4 th:text="${thema.author.login}">...</h4></td>
+				<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(thema.createDate,'dd MMMM yyyy')}">dd/MM/yyyy</h4></td>
 				
 			</tr>
 			
 				</tbody>
 			</table>
 		</div>
-		<a class="btn btn-default" th:href="@{/forums/example/createthema}" role="button">Stwórz temat</a>
+		<a sec:authorize="hasRole('ROLE_USER')" class="btn btn-default" th:href="@{'/forums/' + ${title} + '/createthema'}" role="button">Stwórz temat</a>
 	</div>
 	
 	<hr/>

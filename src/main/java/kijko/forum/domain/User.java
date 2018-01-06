@@ -1,7 +1,9 @@
 package kijko.forum.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,7 +13,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -34,7 +38,7 @@ public class User {
 
 //	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JoinColumn(name = "author_id")
-//	private Collection<Thema> themas;
+//	private List<Thema> thema = new ArrayList<>();
 //
 //	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JoinColumn(name = "author_id")
@@ -44,27 +48,35 @@ public class User {
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Role> role = new HashSet<>();
 
-	public Set<Role> getRoles() {
-		return role;
-	}
 
-	public void setRoles(Set<Role> roles) {
-		this.role = roles;
-	}
 
 	public User() {
-//		themas = new ArrayList<Thema>();
+//		thema = new ArrayList<Thema>();
 //		posts = new ArrayList<Post>();
 		role = new HashSet<Role>();
 	}
 
-//	public Collection<Post> getPosts() {
-//		return posts;
+
+
+//	public List<Thema> getThema() {
+//		return thema;
 //	}
 //
-//	public void setPosts(Collection<Post> posts) {
-//		this.posts = posts;
+//
+//
+//	public void setThema(List<Thema> thema) {
+//		this.thema = thema;
 //	}
+
+
+
+	public Set<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(Set<Role> role) {
+		this.role = role;
+	}
 
 	public Date getJoinDate() {
 		return joinDate;
@@ -77,14 +89,6 @@ public class User {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-//	public Collection<Thema> getThemas() {
-//		return themas;
-//	}
-//
-//	public void setThemas(Collection<Thema> themas) {
-//		this.themas = themas;
-//	}
 
 	public long getId() {
 		return id;

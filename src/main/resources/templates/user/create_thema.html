@@ -23,8 +23,8 @@ textarea {
 		<div class="container">
 			<div class="row btn-group col-sm-12">
 				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
-				<a class="btn btn-default" th:href="@{/forums/example}" role="button">Przykladowe forum</a> 
-				<a class="btn btn-primary" th:href="@{/forums/example/createthema}" role="button">Stwórz temat</a>
+				<a class="btn btn-default" th:href="@{'/forums/' + ${forumTitle}}" role="button">Przykladowe forum</a> 
+				<a class="btn btn-primary" th:href="@{'/forums/' + ${forumTitle} + '/createthema'}" role="button">Stwórz temat</a>
 				<hr />
 			</div>
 		</div>
@@ -33,7 +33,7 @@ textarea {
 
 			<div class="panel-body">
 
-				<form id="createthema" action="#" th:action="@{/forums/example/createthema}" method="post" th:object="${themaForm}">
+				<form id="createthema" action="#" th:action="@{'/forums/' + ${forumTitle} + '/createthema'}" method="post" th:object="${themaForm}">
 					<div class="form-group row">
 						<div class="col-sm-12" th:classappend="${#fields.hasErrors('title')} ? has-error">
 							<label>Tytuł tematu</label> 

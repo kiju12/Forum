@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 		.authorizeRequests()
-		.antMatchers("/createforum").hasAnyRole("ADMIN")
+		.antMatchers("/createforum", "/adminpanel/**").hasAnyRole("ADMIN")
 		.antMatchers("/groups/**", "/forums/**/createthema").hasAnyRole("USER")
 		.antMatchers("/", "/register", "/forums/**" ).permitAll()
 		.anyRequest().authenticated()

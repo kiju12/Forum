@@ -1,6 +1,8 @@
 package kijko.forum.services.impl;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		Role userRole = roleRepository.findByName("ROLE_USER");
-		user.getRoles().add(userRole);
+		user.getRole().add(userRole);
 		
         userRepository.save(user);
 	}
@@ -36,6 +38,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public ArrayList<User> findAll() {
+		return (ArrayList<User>) userRepository.findAll();
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		userRepository.delete(user);
 	}
 	
 	
