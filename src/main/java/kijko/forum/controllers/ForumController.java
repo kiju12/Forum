@@ -1,7 +1,6 @@
 package kijko.forum.controllers;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -98,7 +97,9 @@ public class ForumController {
 		if(!result.hasErrors() && forum != null && author != null) {
 			log.info("Formularz tematu - pomyślnie utworzony");
 			log.info(form.toString());
+			
 			Thema created = form.createThema();
+			
 			User themaAuthor = userService.findByLogin(author);
 				created.setAuthor(themaAuthor);
 			
@@ -115,21 +116,44 @@ public class ForumController {
 			
 			
 			redAtt.addFlashAttribute("themaCreated", true);
-			return "redirect:/forums/example";
+			return "redirect:/forums/" + forumTitle;
 		} else {
 			log.info("Formularz tematu - NIE UTWORZONY");
 			return "user/create_thema";
 		}
 	}
 	
-	@GetMapping("/example/thema")
-	public String thema(Model model) {
-		model.addAttribute("formAnswer", new AnswerForm());
-		return "domain/thema";
+	@GetMapping("/{forumTitle}/{themaTitle}")
+	public String thema(@PathVariable("forumTitle") String forumTitle, @PathVariable("themaTitle") String themaTitle, Model model) {
+		Forum forum = forumService.findByTitle(forumTitle);
+		Thema thema = null;
+		
+		if(forum != null) {
+			thema = forum.getOneThema(themaTitle);
+			
+		}
+		if(forum != null && thema != null) {
+			
+			model.addAttribute("title", themaTitle);
+			model.addAttribute("forumTitle", forumTitle);
+			model.addAttribute("themaTitle", themaTitle);
+			model.addAttribute("postList", thema.getPosts());
+			model.addAttribute("formAnswer", new AnswerForm());
+			return "domain/thema";
+		
+		} else {
+			log.info("Nie znaleziono tematu");
+			
+			return "redirect:/";
+		}
+		
+		
+		
+		
 		
 	}
 	
-	@PostMapping("/example/thema")
+	@PostMapping("/{forumTitle}/{themaTitle}")
 	public String themaAnswer(@ModelAttribute("formAnswer") AnswerForm form, BindingResult result) {
 		answerFormValid.validate(form, result);
 		

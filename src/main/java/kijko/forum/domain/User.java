@@ -1,9 +1,7 @@
 package kijko.forum.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -36,13 +32,6 @@ public class User {
 	@Column(name = "joinDate")
 	private Date joinDate;
 
-//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "author_id")
-//	private List<Thema> thema = new ArrayList<>();
-//
-//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "author_id")
-//	private Collection<Post> posts;
 
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -51,22 +40,9 @@ public class User {
 
 
 	public User() {
-//		thema = new ArrayList<Thema>();
-//		posts = new ArrayList<Post>();
-		role = new HashSet<Role>();
 	}
 
 
-
-//	public List<Thema> getThema() {
-//		return thema;
-//	}
-//
-//
-//
-//	public void setThema(List<Thema> thema) {
-//		this.thema = thema;
-//	}
 
 
 

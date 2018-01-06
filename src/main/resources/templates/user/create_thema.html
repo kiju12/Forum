@@ -23,7 +23,7 @@ textarea {
 		<div class="container">
 			<div class="row btn-group col-sm-12">
 				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
-				<a class="btn btn-default" th:href="@{'/forums/' + ${forumTitle}}" role="button">Przykladowe forum</a> 
+				<a class="btn btn-default" th:href="@{'/forums/' + ${forumTitle}}" role="button" th:text="${forumTitle}">forum</a> 
 				<a class="btn btn-primary" th:href="@{'/forums/' + ${forumTitle} + '/createthema'}" role="button">Stwórz temat</a>
 				<hr />
 			</div>

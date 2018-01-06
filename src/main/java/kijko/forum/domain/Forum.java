@@ -45,6 +45,20 @@ public class Forum {
 		return false;
 	}
 	
+	public Thema getOneThema(String themaTitle) {
+		Thema lookedFor = null;
+		
+		for(Thema thema : themas) {
+			if(thema.getTitle().equals(themaTitle)) {
+				lookedFor = thema;
+			}
+		}
+		
+		if(lookedFor != null) {
+			return lookedFor;
+		} else return null;
+	}
+	
 	public Date getDateOfCreate() {
 		return dateOfCreate;
 	}

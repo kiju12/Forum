@@ -69,4 +69,10 @@ public class AdminController {
 		return "redirect:/adminpanel";
 	}
 	
+	@GetMapping("/delete/forum/thema/{forumTitle}-{themaTitle}")
+	public String deleteThema(@PathVariable("forumTitle") String forumTitle, @PathVariable("themaTitle") String themaTitle) {
+		//jutro tomorrow :) :* <3 <3
+		return "redirect:/adminpanel";
+	}
+	
 }
