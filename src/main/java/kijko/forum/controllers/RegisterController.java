@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.forms.RegisterForm;
-import kijko.forum.domain.repository.UserRepository;
+import kijko.forum.services.UserService;
 import kijko.forum.validate.RegisterFormValidator;
 
 @Controller
@@ -25,10 +25,11 @@ public class RegisterController {
 	private String title = "Rejestracja";
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserService userService;
 	
 	@Autowired
 	private RegisterFormValidator validator;
+	
 	
 	@GetMapping
 	public String register(Model model) {
@@ -42,21 +43,19 @@ public class RegisterController {
 	public String register(@ModelAttribute("form") RegisterForm form, BindingResult result, RedirectAttributes redAtt) {
 		validator.validate(form, result);
 		
-		if(!result.hasErrors()) {
-			log.info("Formularz rejestracyjny - przeszedł walidacje");
-			log.info(form.toString());
-			userRepo.save(form.createUser());
-			
-			redAtt.addFlashAttribute("regComplete", true);
-			return "redirect:/register";
-		} else {
+		if(result.hasErrors()) {
 			log.info("Formularz rejestracyjny - NIE przeszedł walidacji");
-			
+
 			return "user/register";
 		}
 		
-		
-		
+			log.info("Formularz rejestracyjny - przeszedł walidacje");
+			log.info(form.toString());
+			userService.save(form.createUser());
+			
+			
+			redAtt.addFlashAttribute("regComplete", true);
+			return "redirect:/register";
 		
 	}
 	

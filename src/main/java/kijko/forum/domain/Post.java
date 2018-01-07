@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="post")
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,18 @@ public class Post {
 	@Column(name = "content")
 	private String content;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name="author_id")
+	private User author;
+	
+	
+	
+	public User getAuthor() {
+		return author;
+	}
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 	public Date getDateOfCreate() {
 		return dateOfCreate;
 	}

@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${title}" >...</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	
+	<style>
+		.wiki {
+			color: #DA70D6;
+		}
+	
+	</style>
 </head>
 
 <body>
 	
 	<div th:fragment="banner"  class="container-fluid">
 		<div  class="page-header text-center">
-			<h1>Forum publiczne</h1>
+			<h1 class="wiki">VIcI</h1>
 			<p>Zaloguj się, stwórz temat i rozmawiaj</p>
 		</div>
 	</div>
@@ -20,19 +28,29 @@
 	
 		<div class="container panel panel-default" th:fragment="main_panel">
 			<div class="row panel-body">
-				<div class="btn-group col-sm-12">
+				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_USER') and not hasRole('ROLE_ADMIN')">
+					<span class="btn btn-danger">Zalogowany jako <span sec:authentication="name">...</span></span>
+					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
+				</div>
+				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a class="btn btn-danger" th:href="@{/adminpanel}">Panel Administratora</a>
+					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
+				</div>
+				<div class="btn-group col-sm-12" sec:authorize="not isAuthenticated()">
 					<a class="btn btn-default" th:href="@{/login}" role="button">Logowanie</a>
 					<a class="btn btn-success" th:href="@{/register}" role="button">Rejestracja</a>
-					<a class="btn btn-default" th:href="@{/groups}" role="button">Grupy</a>
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		<div class="container">
 			<div th:if="${forumCreated}" class="alert alert-success">
 					Utworzono forum.
 			</div>
 			<div th:if="${logComplete}" class="alert alert-success">
-					Logowanie pomyślne
+					Logowanie pomyślne.
 			</div>
 		</div>
 		
@@ -57,18 +75,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="row">
+						<tr th:each="forum : ${forumList}" th:object="${forum}" class="row">
 
-							<td class="col-sm-8"> <a th:href="@{/forums/example}"><h4>Przykladowa nazwa forum</h4></a> </td>
-							<td class="col-sm-2 text-center"><h4>1</h4></td>
-							<td class="col-sm-2 text-center"><h4>dd/MM/yyyy</h4></td>
+							<td class="col-sm-8"> <a th:href="@{'/forums/' + *{title}}"><h4 th:text="*{title}" >nazwa_forum</h4></a> </td>
+							<td class="col-sm-2 text-center"><h4 th:text="*{themas.size()}">ilość_tematów</h4></td>
+							<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(dateOfCreate,'dd MMMM yyyy')}">dd/MM/yyyy</h4></td>
 
 						</tr>
 
 					</tbody>
 				</table>
 			</div>
-		<a class="btn btn-default" th:href="@{/createforum}" role="button">Stwórz forum</a>
+		<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-default" th:href="@{/createforum}" role="button">Stwórz forum</a>
 		</div>
 <!-- 		Przycisk widoczny tylko dla Administratora -->
 		

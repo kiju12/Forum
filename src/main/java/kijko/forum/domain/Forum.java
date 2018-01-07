@@ -1,8 +1,8 @@
 package kijko.forum.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,11 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 @Entity
-@Table(name="forum")
 public class Forum {
 	
 	@Id
@@ -31,10 +29,34 @@ public class Forum {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="forum_id")
-	private Collection<Thema> themas;
+	private List<Thema> themas;
 	
 	public Forum() {
 		themas = new ArrayList<Thema>();
+	}
+	
+	public boolean hasThema(String themaTitle) {
+		for(Thema thema : themas) {
+			if(thema.getTitle().equals(themaTitle)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Thema getOneThema(String themaTitle) {
+		Thema lookedFor = null;
+		
+		for(Thema thema : themas) {
+			if(thema.getTitle().equals(themaTitle)) {
+				lookedFor = thema;
+			}
+		}
+		
+		if(lookedFor != null) {
+			return lookedFor;
+		} else return null;
 	}
 	
 	public Date getDateOfCreate() {
@@ -56,13 +78,15 @@ public class Forum {
 		this.title = title;
 	}
 
-	public Collection<Thema> getThemas() {
+	public List<Thema> getThemas() {
 		return themas;
 	}
 
-	public void setThemas(Collection<Thema> themas) {
+	public void setThemas(List<Thema> themas) {
 		this.themas = themas;
 	}
+
+	
 	
 	
 }

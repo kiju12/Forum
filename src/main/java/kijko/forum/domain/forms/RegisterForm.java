@@ -2,7 +2,9 @@ package kijko.forum.domain.forms;
 
 
 import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
 import kijko.forum.domain.User;
 
 
@@ -28,11 +30,7 @@ public class RegisterForm {
 			user.setPassword(password);
 			user.setEmail(email);
 			user.setJoinDate(new Date());
-			
-//			ArrayList<Role> roles = new ArrayList<>();
-//				roles.add(new Role("USER"));
-//			user.setRoles(roles);
-			
+		
 		return user;
 	}
 	

@@ -1,24 +1,19 @@
 package kijko.forum.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
 public class User {
 
 	@Id
@@ -37,37 +32,26 @@ public class User {
 	@Column(name = "joinDate")
 	private Date joinDate;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "author_id")
-	private Collection<Thema> themas;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "author_id")
-	private Collection<Post> posts;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<Role> role = new HashSet<>();
 
-	@ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
 	public User() {
-		themas = new ArrayList<Thema>();
-		posts = new ArrayList<Post>();
 	}
 
-	public Collection<Post> getPosts() {
-		return posts;
+
+
+
+
+	public Set<Role> getRole() {
+		return role;
 	}
 
-	public void setPosts(Collection<Post> posts) {
-		this.posts = posts;
+	public void setRole(Set<Role> role) {
+		this.role = role;
 	}
 
 	public Date getJoinDate() {
@@ -80,14 +64,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Collection<Thema> getThemas() {
-		return themas;
-	}
-
-	public void setThemas(Collection<Thema> themas) {
-		this.themas = themas;
 	}
 
 	public long getId() {
