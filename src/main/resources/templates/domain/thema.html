@@ -67,7 +67,7 @@
 			</div>
 			
 			
-			<form sec:authorize="hasRole('ROLE_USER')" id="answer" action="#" th:action="@{/forums/example/thema}" method="post" th:object="${formAnswer}">
+			<form sec:authorize="hasRole('ROLE_USER')" id="answer" action="#" th:action="@{'/forums/' + ${forumTitle} + '/' + ${themaTitle}}" method="post" th:object="${formAnswer}">
 				<div class="form-group row">
 				<div class="col-sm-12" th:classappend="${#fields.hasErrors('content')} ? has-error">
 					

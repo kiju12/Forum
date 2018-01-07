@@ -154,18 +154,39 @@ public class ForumController {
 	}
 	
 	@PostMapping("/{forumTitle}/{themaTitle}")
-	public String themaAnswer(@ModelAttribute("formAnswer") AnswerForm form, BindingResult result) {
+	public String themaAnswer(@ModelAttribute("formAnswer") AnswerForm form, BindingResult result, 
+			@PathVariable("forumTitle") String forumTitle, @PathVariable("themaTitle") String themaTitle) {
 		answerFormValid.validate(form, result);
+		
+		Forum forum = forumService.findByTitle(forumTitle);
+		Thema thema = null;
+		
+		if(forum != null) {
+			if(forum.hasThema(themaTitle)) {
+				thema = forum.getOneThema(themaTitle);
+			}
+		}
 		
 		if(!result.hasErrors()) {
 			log.info("Formularz odpowiedzi - pomyślnie utworzony");
 			log.info(form.toString());
+			Post post = form.createPost();
 			
-			return "redirect:/forums/example/thema";
-		} else {
-			log.info("Formularz odpowiedzi - NIE UTWORZONO");
+			String authorName = SecurityContextHolder.getContext().getAuthentication().getName();
+			User postAuthor = userService.findByLogin(authorName);
+			
+				post.setAuthor(postAuthor);
+			
+			thema.getPosts().add(post);
+			
+			forumService.updateForum(forum);
+			
+			
+			return "redirect:/forums/" + forumTitle + "/" + themaTitle;
 		}
+			
 		
+		log.info("Formularz odpowiedzi - NIE UTWORZONO");
 		return "domain/thema";
 	}
 }
