@@ -26,6 +26,9 @@
 			<div th:if="${themaCreated}" class="alert alert-success">
 					Utworzono temat.
 			</div>
+			<div th:if="${themaDeleted}" class="alert alert-success">
+					Temat <span th:text="${deletedTitle}">tytul_usunietego</span> pomyślnie usunięty.
+			</div>
 		</div>
 	
 	<div class="container">

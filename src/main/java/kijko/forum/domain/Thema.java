@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 public class Thema {
@@ -48,6 +51,24 @@ public class Thema {
 	public Thema() {
 	}
 	
+	public Post getPostById(Long id) {
+		for(Post p : posts) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public boolean hasPost(Long id) {
+		for(Post p : posts) {
+			if(p.getId() == id) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	public Date getCreateDate() {
 		return createDate;
