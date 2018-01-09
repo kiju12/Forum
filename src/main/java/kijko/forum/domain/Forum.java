@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Forum {
+public class Forum implements Comparable<Forum> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,6 +84,17 @@ public class Forum {
 
 	public void setThemas(List<Thema> themas) {
 		this.themas = themas;
+	}
+
+	@Override
+	public int compareTo(Forum forum) {
+		if(this.getDateOfCreate().before(forum.getDateOfCreate())) {
+			return -1;
+		} else if(this.getDateOfCreate().after(forum.getDateOfCreate())) {
+			return 1;
+		}
+		
+		return 0;
 	}
 
 	

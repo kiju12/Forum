@@ -1,6 +1,7 @@
 package kijko.forum.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class HomeController {
 	public String home(Model model) {
 		model.addAttribute("title", title);
 		ArrayList<Forum> allForums = forumService.findAll();
+		Collections.sort(allForums);
 		model.addAttribute("forumList", allForums);
 		
 		return "index";

@@ -15,8 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
+
 @Entity
-public class Thema {
+public class Thema implements Comparable<Thema> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +49,24 @@ public class Thema {
 	public Thema() {
 	}
 	
+	public Post getPostById(Long id) {
+		for(Post p : posts) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public boolean hasPost(Long id) {
+		for(Post p : posts) {
+			if(p.getId() == id) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	public Date getCreateDate() {
 		return createDate;
@@ -74,6 +93,17 @@ public class Thema {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	@Override
+	public int compareTo(Thema thema) {
+		if(this.getCreateDate().before(thema.getCreateDate())) {
+			return -1;
+		} else if(this.getCreateDate().after(thema.getCreateDate())) {
+			return 1;
+		}
+		
+		return 0;
 	}
 
 	

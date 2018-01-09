@@ -1,6 +1,7 @@
 package kijko.forum.controllers;
 
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class ForumController {
 			model.addAttribute("title", forumTitle);
 			
 			List<Thema> themaList = forum.getThemas();
+			Collections.sort(themaList);
 			model.addAttribute("themaList", themaList);
 			
 			return "domain/forum";
@@ -89,6 +91,7 @@ public class ForumController {
 	@PostMapping("/{forumTitle}/createthema")
 	public String createThema(@ModelAttribute("themaForm") ThemaForm form, @PathVariable("forumTitle") String forumTitle, 
 			BindingResult result, RedirectAttributes redAtt) {
+		form.setForumTitle(forumTitle);
 		themaFormValidator.validate(form, result);
 		
 		Forum forum = forumService.findByTitle(forumTitle);
@@ -137,7 +140,11 @@ public class ForumController {
 			model.addAttribute("title", themaTitle);
 			model.addAttribute("forumTitle", forumTitle);
 			model.addAttribute("themaTitle", themaTitle);
-			model.addAttribute("postList", thema.getPosts());
+			
+			List<Post> posts = thema.getPosts();
+			Collections.sort(posts); //sortowanie
+			
+			model.addAttribute("postList", posts); 
 			model.addAttribute("formAnswer", new AnswerForm());
 			return "domain/thema";
 		

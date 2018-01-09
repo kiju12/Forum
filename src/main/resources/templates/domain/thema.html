@@ -28,6 +28,11 @@
 					<hr/>
 		</div>
 	</div>
+	<div class="container">
+			<div th:if="${postDeleted}" class="alert alert-success">
+					Post użytkownika <span th:text="${deletedAuthor}">user</span> pomyślnie usunięty.
+			</div>
+		</div>
 	
 	
 	<div class="container">
@@ -48,7 +53,7 @@
 							<p th:text="*{content}">PostContent</p>
 							<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-xs text-right" 
 									th:href="@{'/adminpanel/delete/forum/thema/post/' + ${forumTitle} + '-' + ${themaTitle} + '-' + *{id}}">Usuń post</a>
-							<h6 class="text-muted" th:text="'Post dodany ' + *{#calendars.format(dateOfCreate,'dd MMMM yyyy')}">dateOfCreate</h6>
+							<h6 class="text-muted" th:text="'Post dodany ' + *{#calendars.format(dateOfCreate,'dd MMMM yyyy HH:mm:ss')}">dateOfCreate</h6>
 						</td>
 					</tr>
 <!-- 					Pojedynczy post koniec -->

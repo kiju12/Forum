@@ -10,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
 @Entity
-public class Post {
+public class Post implements Comparable<Post> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -51,6 +52,17 @@ public class Post {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	@Override
+	public int compareTo(Post post) {
+		if(this.getDateOfCreate().before(post.getDateOfCreate())) {
+			return -1;
+		} else if(this.getDateOfCreate().after(post.getDateOfCreate())) {
+			return 1;
+		}
+		
+		return 0;
 	}
 	
 	

@@ -79,7 +79,7 @@
 
 							<td class="col-sm-8"> <a th:href="@{'/forums/' + *{title}}"><h4 th:text="*{title}" >nazwa_forum</h4></a> </td>
 							<td class="col-sm-2 text-center"><h4 th:text="*{themas.size()}">ilość_tematów</h4></td>
-							<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(dateOfCreate,'dd MMMM yyyy')}">dd/MM/yyyy</h4></td>
+							<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(dateOfCreate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4></td>
 
 						</tr>
 
