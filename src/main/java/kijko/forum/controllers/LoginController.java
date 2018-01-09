@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -27,7 +28,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/logout")
-	public String logoutDo(HttpServletRequest request, HttpServletResponse response) {
+	public String logoutDo(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redAtts) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		HttpSession session = request.getSession(false);
 		SecurityContextHolder.clearContext();
@@ -40,6 +41,7 @@ public class LoginController {
 		}
 		
 		log.info("Pomyślne wylogowanie użytkownika " + username);
+		redAtts.addFlashAttribute("logoutComplete", true);
 		return "redirect:/";
 	}
 	

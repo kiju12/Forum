@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head >
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,15 +8,15 @@
 <title th:text="${title}">...</title>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
+	
 <style>
-textarea {
-	resize: none;
-}
+	textarea {
+		resize: none;
+	}
 </style>
-
-
+<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 </head>
-<body>
+<body class="backg" th:background="@{/images/bg.jpg}">
 	<div class="container-fluid">
 		<div th:replace="index :: banner">...</div>
 		<div th:replace="index :: main_panel">...</div>
@@ -23,31 +24,33 @@ textarea {
 		<div class="container">
 			<div class="row btn-group col-sm-12">
 				<a class="btn btn-default" th:href="@{/}" role="button">Home</a>
-				<a class="btn btn-default" th:href="@{'/forums/' + ${forumTitle}}" role="button" th:text="${forumTitle}">forum</a> 
+				<a class="btn btn-default" th:href="@{'/forums/' + ${forumTitle}}" role="button" th:text="${forumTitle}">Nazwa_forum</a> 
 				<a class="btn btn-primary" th:href="@{'/forums/' + ${forumTitle} + '/createthema'}" role="button">Stwórz temat</a>
 				<hr />
 			</div>
 		</div>
 
-		<div class="container panel panel-default">
+		<div class="container panel panel-default mtable">
 
-			<div class="panel-body">
+			<div class="panel-body ">
 
 				<form id="createthema" action="#" th:action="@{'/forums/' + ${forumTitle} + '/createthema'}" method="post" th:object="${themaForm}">
 					<div class="form-group row">
 						<div class="col-sm-12" th:classappend="${#fields.hasErrors('title')} ? has-error">
-							<label>Tytuł tematu</label> 
+							<label class="white">Tytuł tematu</label> 
 							<input type="text"	class="form-control" placeholder="Tytuł tematu" maxlength="63" th:field="*{title}"/>
 							<span class="help-block">max. 63 znaki</span>
+							
 							<div th:each="error : ${#fields.errors('title')}">
 								<h6  class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
 							</div>
 						</div>
 						<div class="col-sm-12" th:classappend="${#fields.hasErrors('firstPostContent')} ? has-error">
-							<label>Treść pierwszego posta</label>
+							<label class="white">Treść pierwszego posta</label>
 							<textarea class="form-control" form="createthema" placeholder="Treść" maxlength="2048" rows="5" th:field="*{firstPostContent}">
 							</textarea>
 							<span class="help-block">max. 2048 znaków</span>
+							
 							<div th:each="error : ${#fields.errors('firstPostContent')}">
 								<h6  class="text-danger" type="text" th:text="'*' + ${error}">...</h6>
 							</div>

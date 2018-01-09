@@ -37,8 +37,10 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model) {
 		model.addAttribute("title", title);
+		
 		ArrayList<Forum> allForums = forumService.findAll();
 		Collections.sort(allForums);
+		
 		model.addAttribute("forumList", allForums);
 		
 		return "index";

@@ -26,7 +26,7 @@ public class RegisterFormValidator implements Validator {
 		RegisterForm form = (RegisterForm) target;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "notEmpty");
-		if(form.getUsername().length() < 6 || form.getUsername().length() > 12) 
+		if(form.getUsername().length() < 6 || form.getUsername().length() > 20) 
 			errors.rejectValue("username", "username.size");
 		
 		//Tutaj warunek że username nie wystepuje w bazie danych

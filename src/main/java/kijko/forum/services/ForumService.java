@@ -3,7 +3,6 @@ package kijko.forum.services;
 import java.util.ArrayList;
 
 import kijko.forum.domain.Forum;
-import kijko.forum.domain.Post;
 
 public interface ForumService {
 	
@@ -14,5 +13,4 @@ public interface ForumService {
 	void deleteForum(Forum forum);
 	boolean updateForum(Forum forum);
 	
-	void addPost(Post post);
 }

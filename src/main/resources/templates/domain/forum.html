@@ -6,11 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title th:text="${title}">...</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/bootstrap.min.css}" />
-
+<link rel="stylesheet" type="text/css"	th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 </head>
-  <body>
+  <body class="backg" th:background="@{/images/bg.jpg}">
 	<div class="container-fluid">
 		<div th:replace="index :: banner">...</div>
 		<div th:replace="index :: main_panel">...</div>
@@ -27,17 +26,17 @@
 					Utworzono temat.
 			</div>
 			<div th:if="${themaDeleted}" class="alert alert-success">
-					Temat <span th:text="${deletedTitle}">tytul_usunietego</span> pomyślnie usunięty.
+					Temat <b><span th:text="${deletedTitle}">tytul_usunietego</span></b> pomyślnie usunięty.
 			</div>
-		</div>
+	</div>
 	
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-default mtable">
 			<table class="table table-bordered panel-body">
 				<thead>
-			<tr class="row well">
+			<tr class="row well htab">
 				
-					<th class="col-sm-6">Nazwa Tematu</th>
+					<th class="col-sm-6 text-center">Nazwa Tematu</th>
 					<th class="col-sm-2 text-center" >Liczba postów</th>
 					<th class="col-sm-2 text-center" >Autor tematu</th>
 					<th class="col-sm-2 text-center">Data założenia</th>
@@ -45,12 +44,12 @@
 			</tr>
 				</thead>
 				<tbody>
-			<tr class="row" th:each="thema : ${themaList}">
+			<tr class="row mtable" th:each="thema : ${themaList}">
 			
-				<td class="col-sm-6" ><a th:href="@{'/forums/' + ${title} + '/' + ${thema.title}}"><h4 th:text="${thema.title}">tytuł_tematu</h4></a></td>
-				<td class="col-sm-2 text-center"><h4 th:text="${thema.posts.size()}">...</h4></td>
-				<td class="col-sm-2 text-center"><h4 th:text="${thema.author.login}">...</h4></td>
-				<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(thema.createDate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4></td>
+				<td class="col-sm-6 text-center" ><a class="l" th:href="@{'/forums/' + ${title} + '/' + ${thema.title}}"><h4 th:text="${thema.title}">tytuł_tematu</h4></a></td>
+				<td class="col-sm-2 text-center"><h4 class="white" th:text="${thema.posts.size()}">...</h4></td>
+				<td class="col-sm-2 text-center"><h4 class="white" th:text="${thema.author.login}">...</h4></td>
+				<td class="col-sm-2 text-center"><h4 class="white" th:text="*{#calendars.format(thema.createDate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4></td>
 				
 			</tr>
 			

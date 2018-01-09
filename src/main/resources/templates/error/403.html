@@ -6,24 +6,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${title}" >...</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 </head>
 
-<body>
+<body class="backg" th:background="@{/images/bg.jpg}">
 	
 
-		<div class="container panel panel-default">
+		<div class="container panel panel-default mtable">
 			<hr/>
-				<h1 class="text-center">Brak dostępu - wróć do <a th:href="@{/}">Strony głównej.</a> </h1>
+				<h1 class="text-center white">Brak dostępu - wróć do <a class="l" th:href="@{/}">Strony głównej.</a> </h1>
 		
 			<hr/>
 		</div>
 		<hr />
-		<footer class="footer" th:fragment="footer">
-			<div class="container">
-				<p class="text-muted text-center">
-					<i>by Maciej Kijko</i>
-				</p>
-			</div>
+		<footer th:replace="index :: footer">
+			
 		</footer>
 </body>
 </html>

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kijko.forum.domain.Forum;
-import kijko.forum.domain.Post;
 import kijko.forum.domain.repository.ForumRepository;
-import kijko.forum.domain.repository.PostRepository;
 import kijko.forum.services.ForumService;
 
 @Service
@@ -17,8 +15,6 @@ public class ForumServiceImpl implements ForumService {
 	@Autowired
 	private ForumRepository forumRepo;
 	
-	@Autowired
-	private PostRepository postRepo;
 	
 	@Override
 	public void addForum(Forum forum) {
@@ -70,10 +66,5 @@ public class ForumServiceImpl implements ForumService {
 			
 	}
 
-	@Override
-	public void addPost(Post post) {
-		postRepo.save(post);
-		
-	}
 
 }

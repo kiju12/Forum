@@ -50,7 +50,6 @@ public class ForumController {
 	@GetMapping("/{forumTitle}")
 	public String forum(@PathVariable("forumTitle") String forumTitle, Model model) {
 		
-		
 		Forum forum = forumService.findByTitle(forumTitle);
 		
 		if(forum == null) {
@@ -64,8 +63,6 @@ public class ForumController {
 			
 			return "domain/forum";
 		}
-		
-		
 	}
 	
 	
@@ -83,9 +80,6 @@ public class ForumController {
 			
 			return "user/create_thema";
 		}
-		
-		
-		
 	}
 	
 	@PostMapping("/{forumTitle}/createthema")
@@ -117,9 +111,8 @@ public class ForumController {
 			
 			forumService.updateForum(forum);
 			
-			
 			redAtt.addFlashAttribute("themaCreated", true);
-			return "redirect:/forums/" + forumTitle;
+			return "redirect:/forums/" + forumTitle + "/" + created.getTitle();
 		} else {
 			log.info("Formularz tematu - NIE UTWORZONY");
 			return "user/create_thema";
@@ -142,7 +135,7 @@ public class ForumController {
 			model.addAttribute("themaTitle", themaTitle);
 			
 			List<Post> posts = thema.getPosts();
-			Collections.sort(posts); //sortowanie
+			Collections.sort(posts); 
 			
 			model.addAttribute("postList", posts); 
 			model.addAttribute("formAnswer", new AnswerForm());
@@ -153,11 +146,6 @@ public class ForumController {
 			
 			return "redirect:/";
 		}
-		
-		
-		
-		
-		
 	}
 	
 	@PostMapping("/{forumTitle}/{themaTitle}")
@@ -188,10 +176,8 @@ public class ForumController {
 			
 			forumService.updateForum(forum);
 			
-			
 			return "redirect:/forums/" + forumTitle + "/" + themaTitle;
 		}
-			
 		
 		log.info("Formularz odpowiedzi - NIE UTWORZONO");
 		return "domain/thema";

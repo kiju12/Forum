@@ -6,12 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${title}" >...</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 </head>
 
-<body>
-	<div th:replace="index :: banner" class="container-fluid">...</div>
+<body class="backg" th:background="@{/images/bg.jpg}">
+	<div th:replace="index :: banner" class="container-fluid">banner_skopiowany_z_index</div>
 
-	<div th:replace="index :: main_panel" class="container panel panel-default">...</div>
+	<div th:replace="index :: main_panel" class="container panel panel-default">panel_skopiowany_z_index</div>
 
 	<div class="container">
 		<div class="row btn-group col-sm-12  pb-3">
@@ -23,21 +24,20 @@
 
 
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-default mtable">
 			<hr />
 			
 			<div th:if="${regComplete}" class="alert alert-success">
   				<strong>Sukces!</strong> 
   				<p>Rejestracja przebiegła pomyślnie! Zaloguj się <a th:href="@{/login}">tutaj</a>.</p>
 			</div>
-			
 			<!-- 		Formularz rejestracyjny -->
 			<form action="#" th:action="@{/register}" th:object="${form}" method="post">
 				<div class="row">
 					<div class="col-sm-3 col-sm-offset-1">
 <!-- USERNAME -->
 						<div class="form-group" th:classappend="${#fields.hasErrors('username')} ? has-error">
-							<label for="username">Login:</label> 
+							<label class="white" for="username">Login:</label> 
 							<input  type="text" class="form-control" th:placeholder="#{username.help}" id="username" th:field="*{username}" />
 							
 							<div th:each="error : ${#fields.errors('username')}">
@@ -47,7 +47,7 @@
 						
 <!-- PASSWORD -->
 						<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
-							<label for="pass">Hasło:</label> 
+							<label class="white" for="pass">Hasło:</label> 
 							<input type="password" class="form-control" th:placeholder="#{password.help}" id="pass" th:field="*{password}" />
 							
 							<div th:each="error : ${#fields.errors('password')}">
@@ -56,7 +56,7 @@
 						</div>
 <!-- CONFIRM PASSWORD -->
 						<div class="form-group" th:classappend="${#fields.hasErrors('passConfirm')} ? has-error">
-							<label for="passConfirm">Powtórz hasło:</label> 
+							<label class="white" for="passConfirm">Powtórz hasło:</label> 
 							<input type="password" class="form-control" th:placeholder="#{passConfirm.help}" id="passConfirm" th:field="*{passConfirm}" />
 							
 							<div th:each="error : ${#fields.errors('passConfirm')}">
@@ -65,7 +65,7 @@
 						</div>
 <!-- E-mail -->
 						<div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
-							<label for="email">E-mail:</label> 
+							<label class="white" for="email">E-mail:</label> 
 							<input type="email"	class="form-control" th:placeholder="#{email.help}" id="email" th:field="*{email}" />
 							
 							<div th:each="error : ${#fields.errors('email')}">
@@ -78,19 +78,10 @@
 						</div>
 					</div>
 				</div>
-
 			</form>
-
-
-
-
-
-
 			<hr />
 		</div>
-
 	</div>
-
 	<hr />
 	<footer th:replace="index :: footer">...</footer>
 </body>

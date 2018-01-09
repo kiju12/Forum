@@ -32,6 +32,7 @@ public class AdminController {
 	public String adminPanel(Model model) {
 		model.addAttribute("forumList", forumService.findAll());
 		model.addAttribute("usersList", userService.findAll());
+		model.addAttribute("title", "Panel Administratora");
 		return "admin/adminpanel";
 	}
 	

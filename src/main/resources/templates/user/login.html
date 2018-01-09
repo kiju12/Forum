@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${title}" >...</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 </head>
-  <body>
-	<div th:replace="index :: banner" class="container-fluid">...</div>
+  <body class="backg" th:background="@{/images/bg.jpg}">
+	
+	<div th:replace="index :: banner">...</div>
 
-	<div th:replace="index :: main_panel" class="container panel panel-default">...</div>
+	<div th:replace="index :: main_panel">...</div>
 	
 	<div class="container">
 		<div class="row btn-group col-sm-12  pb-3">
@@ -22,7 +25,7 @@
 	
 	
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-default mtable">
 		<hr/>
 			<div th:if="${loginError}" class="alert alert-danger">
 				<p>
@@ -34,20 +37,20 @@
 				<div class="col-sm-3 col-sm-offset-1">
 <!-- LOGIN	 -->
 					<div class="form-group" th:classappend="${loginError} ? has-error">
-						<label for="login">Login:</label>
+						<label class="white" for="login">Login:</label>
 						<input name="login" type="text" class="form-control" id="login"/>
 					</div>
 					
 <!-- HASŁO -->
 					<div class="form-group" th:classappend="${loginError} ? has-error">
-						<label for="pwd">Hasło:</label>
+						<label class="white" for="pwd">Hasło:</label>
 						<input name="password" type="password" class="form-control" id="pwd"/>
 					</div>
 					
 					
 <!-- PRZYCISK LOGOWANIA -->
 					<div class="form-group">
-						<button type="submit" class="btn btn-danger col-sm-4 col-sm-offset-1">Zaloguj</button>
+						<button type="submit" class="btn btn-success col-sm-4 col-sm-offset-1">Zaloguj</button>
 					</div>
 				</div>
 				

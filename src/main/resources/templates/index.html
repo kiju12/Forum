@@ -1,102 +1,114 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title th:text="${title}" >...</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-	
-	<style>
-		.wiki {
-			color: #DA70D6;
-		}
-	
-	</style>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="${title}">...</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
+
+
 </head>
 
-<body>
-	
-	<div th:fragment="banner"  class="container-fluid">
-		<div  class="page-header text-center">
-			<h1 class="wiki">VIcI</h1>
-			<p>Zaloguj się, stwórz temat i rozmawiaj</p>
+
+<body class="backg" th:background="@{/images/bg.jpg}">
+
+	<div th:fragment="banner" class="container-fluid">
+		<div class="page-header text-center text-white">
+			<h1 class="white">Forum Publiczne</h1>
+			<p class="white">Zaloguj się, stwórz temat i rozmawiaj</p>
 		</div>
 	</div>
-	
-	
-		<div class="container panel panel-default" th:fragment="main_panel">
-			<div class="row panel-body">
-				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_USER') and not hasRole('ROLE_ADMIN')">
-					<span class="btn btn-danger">Zalogowany jako <span sec:authentication="name">...</span></span>
-					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
-				</div>
-				<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_ADMIN')">
-					<a class="btn btn-danger" th:href="@{/adminpanel}">Panel Administratora</a>
-					<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
-				</div>
-				<div class="btn-group col-sm-12" sec:authorize="not isAuthenticated()">
-					<a class="btn btn-default" th:href="@{/login}" role="button">Logowanie</a>
-					<a class="btn btn-success" th:href="@{/register}" role="button">Rejestracja</a>
-				</div>
+
+
+	<div class="container panel panel-default mtable" th:fragment="main_panel" >
+		<div class="row panel-body">
+			<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_USER') and not hasRole('ROLE_ADMIN')">
+				<span class="btn btn-danger">Zalogowany jako <span sec:authentication="name">username</span></span> 
+				<a class="btn btn-default" th:href="@{/logout}" role="button">Wyloguj</a>
+			</div>
+			<div class="btn-group col-sm-12" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a class="btn btn-danger" th:href="@{/adminpanel}">
+				Panel Administratora
+				</a> 
+				<a class="btn btn-default" th:href="@{/logout}" role="button">
+				Wyloguj
+				</a>
+			</div>
+			<div class="btn-group col-sm-12"
+				sec:authorize="not isAuthenticated()">
+				<a class="btn btn-default black" th:href="@{/login}" role="button">Logowanie</a>
+				<a class="btn btn-success" th:href="@{/register}" role="button">Rejestracja</a>
 			</div>
 		</div>
-		
-		
-		
+	</div>
+
+
+
+	<div class="container">
+		<div th:if="${forumCreated}" class="alert alert-success">
+			Utworzono forum.
+		</div>
+		<div th:if="${logComplete}" class="alert alert-success">
+			Logowanie pomyślne.
+		</div>
+		<div th:if="${logoutComplete}" class="alert alert-success">
+			Pomyślnie wylogowano.
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row btn-group col-sm-12  pb-3">
+			<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
+			<hr />
+		</div>
+	</div>
+
+
+	<div class="container ">
+		<div class="panel panel-default mtable">
+			<table class="table table-bordered panel-body mtable">
+				<thead>
+					<tr class="row well htab">
+
+						<th class="col-sm-8 text-center">Nazwa Forum</th>
+						<th class="col-sm-2 text-center">Liczba tematów</th>
+						<th class="col-sm-2 text-center">Data założenia</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="forum : ${forumList}" th:object="${forum}" class="mtable row">
+
+						<td class="col-sm-8 text-center">
+							<a class="l" th:href="@{'/forums/' + *{title}}">
+								<h4 th:text="*{title}">nazwa_forum</h4>
+							</a>
+						</td>
+						<td class="col-sm-2 text-center">
+							<h4 class="white" th:text="*{themas.size()}">liczba_tematów</h4>
+						</td>
+						<td class="col-sm-2 text-center">
+							<h4 class="white" th:text="*{#calendars.format(dateOfCreate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-default" th:href="@{/createforum}" role="button">
+		Stwórz forum
+		</a>
+	</div>
+	<hr />
+	<footer class="footer" th:fragment="footer">
 		<div class="container">
-			<div th:if="${forumCreated}" class="alert alert-success">
-					Utworzono forum.
-			</div>
-			<div th:if="${logComplete}" class="alert alert-success">
-					Logowanie pomyślne.
-			</div>
+			<p class="white text-center">
+				<i>by Maciej Kijko</i>
+			</p>
 		</div>
-		
-		<div class="container">
-			<div class="row btn-group col-sm-12  pb-3">
-				<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
-				<hr />
-			</div>
-		</div>
-
-
-		<div class="container">
-			<div class="panel panel-default">
-				<table class="table table-bordered panel-body">
-					<thead>
-						<tr class="row well">
-
-							<th class="col-sm-8">Nazwa Forum</th>
-							<th class="col-sm-2 text-center">Liczba tematów</th>
-							<th class="col-sm-2 text-center">Data założenia</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="forum : ${forumList}" th:object="${forum}" class="row">
-
-							<td class="col-sm-8"> <a th:href="@{'/forums/' + *{title}}"><h4 th:text="*{title}" >nazwa_forum</h4></a> </td>
-							<td class="col-sm-2 text-center"><h4 th:text="*{themas.size()}">ilość_tematów</h4></td>
-							<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(dateOfCreate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4></td>
-
-						</tr>
-
-					</tbody>
-				</table>
-			</div>
-		<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-default" th:href="@{/createforum}" role="button">Stwórz forum</a>
-		</div>
-<!-- 		Przycisk widoczny tylko dla Administratora -->
-		
-		<hr />
-		<footer class="footer" th:fragment="footer">
-			<div class="container">
-				<p class="text-muted text-center">
-					<i>by Maciej Kijko</i>
-				</p>
-			</div>
-		</footer>
+	</footer>
 </body>
 </html>

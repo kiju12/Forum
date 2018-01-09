@@ -7,13 +7,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${title}" >...</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
 	<style>
 		textarea {
 			resize: none;
 		}
 	</style>
   </head>
-  <body>
+  <body  class="backg" th:background="@{/images/bg.jpg}">
 	<div class="container-fluid">
 	<div th:replace="index :: banner" class="container-fluid">...</div>
 
@@ -32,25 +33,29 @@
 			<div th:if="${postDeleted}" class="alert alert-success">
 					Post użytkownika <span th:text="${deletedAuthor}">user</span> pomyślnie usunięty.
 			</div>
-		</div>
-	
+			<div th:if="${themaCreated}" class="alert alert-success">
+					Utworzono temat.
+			</div>
+	</div>
 	
 	<div class="container">
-		<div class="panel panel-default">
-			<table class="table table-bordered panel-body">
+		<div class="panel panel-default mtable">
+			<table class="table table-bordered panel-body ">
 				
 				<tbody>
 <!-- 				Pojedynczy post poczatek -->
 					<tr th:each="post : ${postList}" th:object="${post}" class="row">
 						<td class="col-sm-2 text-center" >
-							<h4 th:text="*{author.login}" >User</h4>
+							<h4 class="white" th:text="*{author.login}" >User</h4>
+							<div class="media-middle row">
+								<img th:src="@{/images/avatar.jpg}" class="media-object col-sm-4 col-sm-offset-4" style="width:60px"/>
+							</div>
 							<div class="footer align-bottom">
-								
-								<h6 class="text-muted text-bottom" th:text="*{#calendars.format(author.joinDate,'dd MMMM yyyy')}">joinDate</h6>
+								<h6 class="text-muted text-bottom white" th:text="*{#calendars.format(author.joinDate,'dd MMMM yyyy')}">joinDate</h6>
 							</div>
 						</td>
 						<td class="col-sm-10 ">
-							<p th:text="*{content}">PostContent</p>
+							<p class="white" th:text="*{content}">PostContent</p>
 							<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-xs text-right" 
 									th:href="@{'/adminpanel/delete/forum/thema/post/' + ${forumTitle} + '-' + ${themaTitle} + '-' + *{id}}">Usuń post</a>
 							<h6 class="text-muted" th:text="'Post dodany ' + *{#calendars.format(dateOfCreate,'dd MMMM yyyy HH:mm:ss')}">dateOfCreate</h6>
@@ -65,12 +70,12 @@
 		
 	</div>
 	
-	<div class="container panel panel-default">
+	<div class="container panel panel-default mtable">
 		
-		<div class="panel-body">
+		<div class="panel-body ">
 			<div class="row" sec:authorize="not isAuthenticated()">
 				<h6 class="col-sm-6 col-sm-offset-4">
-					<i>Musisz być zalogowany by dodawać odpowiedzi. <a th:href="@{/login}">Zaloguj się.</a></i>
+					<i class="white">Musisz być zalogowany by dodawać odpowiedzi. <a th:href="@{/login}">Zaloguj się.</a></i>
 				</h6>
 			</div>
 			
@@ -79,7 +84,7 @@
 				<div class="form-group row">
 				<div class="col-sm-12" th:classappend="${#fields.hasErrors('content')} ? has-error">
 					
-					<label>Napisz odpowiedź</label>
+					<label class="white">Napisz odpowiedź</label>
 					<textarea class="form-control" form="answer" placeholder="Odpowiedź" maxlength="2048" rows="5" th:field="*{content}"></textarea>
 					<span class="help-block">max. 2048 znaków</span>
 							<div th:each="error : ${#fields.errors('content')}">
@@ -98,10 +103,8 @@
 	</div>
 	
 	<hr/>
-   <footer class="footer">
-      <div class="container">
-        <p class="text-muted text-center"><i>by Maciej Kijko</i></p>
-      </div>
+   <footer th:replace="index :: footer">
+  
     </footer>
   </body>
 </html>
