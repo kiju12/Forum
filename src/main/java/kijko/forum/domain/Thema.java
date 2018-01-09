@@ -14,12 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
-public class Thema {
+public class Thema implements Comparable<Thema> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,6 +93,17 @@ public class Thema {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	@Override
+	public int compareTo(Thema thema) {
+		if(this.getCreateDate().before(thema.getCreateDate())) {
+			return -1;
+		} else if(this.getCreateDate().after(thema.getCreateDate())) {
+			return 1;
+		}
+		
+		return 0;
 	}
 
 	

@@ -10,7 +10,6 @@ import org.springframework.validation.Validator;
 
 import kijko.forum.domain.Forum;
 import kijko.forum.domain.forms.ForumForm;
-import kijko.forum.domain.repository.ForumRepository;
 import kijko.forum.services.ForumService;
 
 

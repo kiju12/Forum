@@ -50,7 +50,7 @@
 				<td class="col-sm-6" ><a th:href="@{'/forums/' + ${title} + '/' + ${thema.title}}"><h4 th:text="${thema.title}">tytuł_tematu</h4></a></td>
 				<td class="col-sm-2 text-center"><h4 th:text="${thema.posts.size()}">...</h4></td>
 				<td class="col-sm-2 text-center"><h4 th:text="${thema.author.login}">...</h4></td>
-				<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(thema.createDate,'dd MMMM yyyy')}">dd/MM/yyyy</h4></td>
+				<td class="col-sm-2 text-center"><h4 th:text="*{#calendars.format(thema.createDate,'dd MMMM yyyy HH:mm')}">dd/MM/yyyy</h4></td>
 				
 			</tr>
 			
