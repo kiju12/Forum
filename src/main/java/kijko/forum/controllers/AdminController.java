@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kijko.forum.domain.Forum;
@@ -53,7 +54,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/delete/forum/{forumTitle}")
-	public String deleteForum(@PathVariable("forumTitle") String forumTitle, RedirectAttributes redAtts) {
+	public String deleteForum(@PathVariable("forumTitle") String forumTitle,
+			@RequestParam("ap") boolean adminpanel, RedirectAttributes redAtts) {
 		Forum forum = forumService.findByTitle(forumTitle);
 		
 		if(forum == null) {
@@ -66,11 +68,19 @@ public class AdminController {
 			redAtts.addFlashAttribute("deletedForumTitle", forumTitle);
 		}
 		
-		return "redirect:/adminpanel";
+			return "redirect:/adminpanel";
 	}
 	
 	@GetMapping("/delete/forum/thema/{forumTitle}-{themaTitle}")
 	public String deleteThema(@PathVariable("forumTitle") String forumTitle, @PathVariable("themaTitle") String themaTitle) {
+		
+		
+		return "redirect:/forums/" + forumTitle;
+	}
+	
+	@GetMapping("/delete/forum/thema/post/{forumTitle}-{themaTitle}-{postId}")
+	public String deletePost(@PathVariable("forumTitle") String forumTitle, @PathVariable("themaTitle") String themaTitle,
+			@PathVariable("postId") Long postId) {
 		//jutro tomorrow :) :* <3 <3
 		return "redirect:/adminpanel";
 	}
